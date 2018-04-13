@@ -26,6 +26,7 @@ export const ReferenceFieldView = ({
     referenceRecord,
     resource,
     resourceLinkPath,
+    sortBy,
     source,
     translateChoice = false,
     ...rest
@@ -74,6 +75,7 @@ ReferenceFieldView.propTypes = {
     referenceRecord: PropTypes.object,
     resource: PropTypes.string,
     resourceLinkPath: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
+    sortBy: PropTypes.string,
     source: PropTypes.string,
     translateChoice: PropTypes.bool,
 };
@@ -137,6 +139,7 @@ ReferenceField.propTypes = {
     record: PropTypes.object,
     reference: PropTypes.string.isRequired,
     resource: PropTypes.string,
+    sortBy: PropTypes.string,
     source: PropTypes.string.isRequired,
     translateChoice: PropTypes.func,
     linkType: PropTypes.oneOfType([PropTypes.string, PropTypes.bool])
