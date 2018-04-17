@@ -13,7 +13,6 @@ export default resource => (previousState = 0, { type, payload, meta }) => {
         return previousState == 0 ? 1 : previousState;
     }
     if (type === CRUD_GET_LIST_SUCCESS) {
-        console.log('totalAll:', payload)
         return payload.totalAll;
     }
     if (type === CRUD_DELETE_OPTIMISTIC) {
