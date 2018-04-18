@@ -63,23 +63,12 @@ export class FilterButton extends Component {
         const areFiltersVisible = this.state.open;
 
         if (areFiltersVisible) {
-            this.hideActiveFilters();
+            this.props.hideActiveFilters();
         } else {
-            this.showInactiveFilters();
+            this.props.showInactiveFilters();
         }
 
         this.setState({ open: !this.state.open });
-    }
-
-    hideActiveFilters() {
-        this.props.hideActiveFilters();
-    }
-
-    showInactiveFilters() {
-        this.getHiddenFilters().forEach(hiddenFilter => {
-            const { source, defaultValue } = hiddenFilter.props;
-            this.props.showFilter(source, defaultValue);
-        });
     }
 
     handleRequestClose() {
@@ -175,6 +164,7 @@ FilterButton.propTypes = {
     filterValues: PropTypes.object.isRequired,
     showFilter: PropTypes.func.isRequired,
     hideActiveFilters: PropTypes.func.isRequired,
+    showInactiveFilters: PropTypes.func.isRequired,
     translate: PropTypes.func.isRequired,
     classes: PropTypes.object,
     className: PropTypes.string,

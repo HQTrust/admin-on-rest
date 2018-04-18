@@ -69,7 +69,18 @@ import removeKey from '../util/removeKey';
  *     );
  */
 export class ListController extends Component {
-    state = {};
+    constructor(props) {
+        super(props);
+
+        const enabledSources = {};
+        props.initiallyEnabledSources.forEach(
+            source => (enabledSources[source] = true)
+        );
+        this.state = {
+            activeFilters: {},
+            enabledSources,
+        };
+    }
 
     componentDidMount() {
         if (
@@ -185,7 +196,9 @@ export class ListController extends Component {
     }, this.props.debounce);
 
     showFilter = (filterName, defaultValue) => {
-        this.setState({ [filterName]: true });
+        this.setState({
+            activeFilters: { ...this.state.activeFilters, [filterName]: true },
+        });
         if (typeof defaultValue !== 'undefined') {
             this.setFilters({
                 ...this.props.filterValues,
@@ -195,16 +208,18 @@ export class ListController extends Component {
     };
 
     hideActiveFilters = () => {
-        const nextState = { ...this.state };
-        Object.keys(this.state).forEach(filterName => {
-            nextState[filterName] = false;
-        });
-        this.setState(nextState);
+        this.setState({ activeFilters: {} });
         this.setFilters({});
     };
 
+    showInactiveFilters = () => {
+        this.setState({ activeFilters: this.state.enabledSources });
+    };
+
     hideFilter = filterName => {
-        this.setState({ [filterName]: false });
+        this.setState({
+            activeFilters: { ...this.state.activeFilters, [filterName]: false },
+        });
         const newFilters = removeKey(this.props.filterValues, filterName);
         this.setFilters(newFilters);
     };
@@ -219,6 +234,13 @@ export class ListController extends Component {
 
     handleToggleItem = id => {
         this.props.toggleItem(this.props.resource, id);
+    };
+
+    setSourceActive = (source, active) => {
+        this.setState({
+            activeFilters: { ...this.state.activeFilters, [source]: active },
+            enabledSources: { ...this.state.enabledSources, [source]: active },
+        });
     };
 
     changeParams(action) {
@@ -246,7 +268,9 @@ export class ListController extends Component {
             translate,
             version,
             selectedIds,
+            metaSources,
         } = this.props;
+        const { enabledSources } = this.state;
         const query = this.getQuery();
 
         const queryFilterValues = query.filter || {};
@@ -268,13 +292,16 @@ export class ListController extends Component {
             },
             data,
             defaultTitle,
-            displayedFilters: this.state,
+            displayedFilters: this.state.activeFilters,
+            enabledSources,
             filterValues: queryFilterValues,
             hasCreate,
             hideActiveFilters: this.hideActiveFilters,
+            showInactiveFilters: this.showInactiveFilters,
             hideFilter: this.hideFilter,
             ids,
             isLoading,
+            metaSources,
             onSelect: this.handleSelect,
             onToggleItem: this.handleToggleItem,
             onUnselectItems: this.handleUnselectItems,
@@ -284,6 +311,7 @@ export class ListController extends Component {
             selectedIds,
             setFilters: this.setFilters,
             setPage: this.setPage,
+            setSourceActive: this.setSourceActive,
             setSort: this.setSort,
             showFilter: this.showFilter,
             translate,
@@ -317,6 +345,8 @@ ListController.propTypes = {
     hasList: PropTypes.bool.isRequired,
     hasShow: PropTypes.bool.isRequired,
     ids: PropTypes.array,
+    initiallyEnabledSources: PropTypes.arrayOf(PropTypes.string),
+    metaSources: PropTypes.arrayOf(PropTypes.string),
     selectedIds: PropTypes.array,
     isLoading: PropTypes.bool.isRequired,
     location: PropTypes.object.isRequired,
