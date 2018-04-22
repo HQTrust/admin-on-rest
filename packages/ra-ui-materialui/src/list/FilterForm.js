@@ -22,6 +22,8 @@ const styles = ({ palette: { primary1Color } }) => ({
         alignItems: 'flex-end',
         flexWrap: 'wrap',
     },
+    checkboxCard: {},
+    formCard: {},
     body: { display: 'flex', alignItems: 'flex-end' },
     spacer: { width: 48 },
     icon: { color: primary1Color || '#00bcd4', paddingBottom: 0 },
@@ -128,12 +130,18 @@ export class FilterForm extends Component {
         return (
             <div className={className} {...sanitizeRestProps(rest)}>
                 {showSourceCheckboxes && (
-                    <CardContent className={classes.card}>
+                    <CardContent
+                        className={classnames(
+                            classes.card,
+                            classes.checkboxCard
+                        )}
+                    >
                         {sources.map(source => (
                             <FormControlLabel
                                 key={source}
                                 control={
                                     <CheckboxClass
+                                        classes={{ root: classes.checkbox }}
                                         checked={enabledSources[source]}
                                         onChange={this.onSourceChange(source)}
                                     />
@@ -143,7 +151,9 @@ export class FilterForm extends Component {
                         ))}
                     </CardContent>
                 )}
-                <CardContent className={classes.card}>
+                <CardContent
+                    className={classnames(classes.card, classes.formCard)}
+                >
                     {shownFilters.reverse().map(filterElement => (
                         <div
                             key={filterElement.props.source}
