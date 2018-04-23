@@ -15,6 +15,7 @@ import { ListController } from 'ra-core';
 import defaultTheme from '../defaultTheme';
 
 const styles = {
+    card: {},
     root: {},
     actions: {},
     header: {},
@@ -123,7 +124,7 @@ export const ListView = ({
             className={classnames('list-page', classes.root, className)}
             {...sanitizeRestProps(rest)}
         >
-            <Card>
+            <Card className={classes.card}>
                 <Header
                     className={classes.header}
                     title={titleElement}

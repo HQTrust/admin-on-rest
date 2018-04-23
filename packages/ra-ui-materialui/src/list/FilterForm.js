@@ -22,6 +22,7 @@ const styles = ({ palette: { primary1Color } }) => ({
         alignItems: 'flex-end',
         flexWrap: 'wrap',
     },
+    checkbox: {},
     checkboxCard: {},
     formCard: {},
     body: { display: 'flex', alignItems: 'flex-end' },
@@ -120,11 +121,11 @@ export class FilterForm extends Component {
         const showSourceCheckboxes =
             !inActionsToolbar &&
             (shouldBulkToggleFilters && isFilterPanelVisible);
-        let sources;
+        let sourceFilters;
         if (showSourceCheckboxes) {
-            sources = filters
-                .map(filter => filter.props.source)
-                .filter(source => metaSources.indexOf(source) === -1);
+            sourceFilters = filters.filter(
+                filter => metaSources.indexOf(filter.props.source) === -1
+            );
         }
 
         return (
@@ -136,19 +137,24 @@ export class FilterForm extends Component {
                             classes.checkboxCard
                         )}
                     >
-                        {sources.map(source => (
-                            <FormControlLabel
-                                key={source}
-                                control={
-                                    <CheckboxClass
-                                        classes={{ root: classes.checkbox }}
-                                        checked={enabledSources[source]}
-                                        onChange={this.onSourceChange(source)}
-                                    />
-                                }
-                                label={source}
-                            />
-                        ))}
+                        {sourceFilters.map(sourceFilter => {
+                            const source = sourceFilter.props.source;
+                            return (
+                                <FormControlLabel
+                                    key={source}
+                                    control={
+                                        <CheckboxClass
+                                            classes={{ root: classes.checkbox }}
+                                            checked={enabledSources[source]}
+                                            onChange={this.onSourceChange(
+                                                source
+                                            )}
+                                        />
+                                    }
+                                    label={sourceFilter.props.label}
+                                />
+                            );
+                        })}
                     </CardContent>
                 )}
                 <CardContent
