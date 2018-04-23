@@ -15,17 +15,18 @@ import { FormControlLabel } from 'material-ui/Form';
 
 const styles = ({ palette: { primary1Color } }) => ({
     card: {
-        marginTop: '-14px',
-        paddingTop: 0,
+        padding: 0,
         display: 'flex',
-        justifyContent: 'flex-end',
-        alignItems: 'flex-end',
         flexWrap: 'wrap',
     },
     cardTitle: {},
     checkbox: {},
     checkboxCard: {},
     formCard: {},
+    hiddenFormCard: {
+        backgroundColor: 'transparent',
+        boxShadow: 'none',
+    },
     body: { display: 'flex', alignItems: 'flex-end' },
     spacer: { width: 48 },
     icon: { color: primary1Color || '#00bcd4', paddingBottom: 0 },
@@ -165,17 +166,21 @@ export class FilterForm extends Component {
                         })}
                     </CardContent>
                 )}
-                {(showFilterPanel || inActionsToolbar) && (
+                {
                     <CardContent
                         className={classnames(classes.card, {
-                            [classes.formCard]: !inActionsToolbar,
+                            [classes.formCard]:
+                                !inActionsToolbar && showFilterPanel,
+                            [classes.hiddenFormCard]:
+                                inActionsToolbar || !showFilterPanel,
                         })}
                     >
-                        {!inActionsToolbar && (
-                            <div className={classes.cardTitle}>
-                                {filterTitle}
-                            </div>
-                        )}
+                        {!inActionsToolbar &&
+                            showFilterPanel && (
+                                <div className={classes.cardTitle}>
+                                    {filterTitle}
+                                </div>
+                            )}
                         {shownFilters.reverse().map((filterElement, index) => (
                             <div
                                 key={filterElement.props.source}
@@ -186,16 +191,14 @@ export class FilterForm extends Component {
                                     filterElement.props.containerClassName
                                 )}
                             >
-                                <div>
-                                    <Field
-                                        allowEmpty
-                                        {...filterElement.props}
-                                        name={filterElement.props.source}
-                                        component={filterElement.type}
-                                        resource={resource}
-                                        record={emptyRecord}
-                                    />
-                                </div>
+                                <Field
+                                    allowEmpty
+                                    {...filterElement.props}
+                                    name={filterElement.props.source}
+                                    component={filterElement.type}
+                                    resource={resource}
+                                    record={emptyRecord}
+                                />
                                 {filterElement.props.alwaysOn ||
                                 shouldBulkToggleFilters ? (
                                     <React.Fragment>
@@ -220,7 +223,7 @@ export class FilterForm extends Component {
                             </div>
                         ))}
                     </CardContent>
-                )}
+                }
                 <div className={classes.clearFix} />
             </div>
         );
