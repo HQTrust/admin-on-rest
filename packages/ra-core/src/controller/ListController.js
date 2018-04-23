@@ -209,7 +209,6 @@ export class ListController extends Component {
 
     hideActiveFilters = () => {
         this.setState({ activeFilters: {} });
-        this.setFilters({});
     };
 
     showInactiveFilters = () => {
@@ -241,6 +240,10 @@ export class ListController extends Component {
             activeFilters: { ...this.state.activeFilters, [source]: active },
             enabledSources: { ...this.state.enabledSources, [source]: active },
         });
+
+        if (!active) {
+            this.setFilters(removeKey(this.props.filterValues, source));
+        }
     };
 
     changeParams(action) {
