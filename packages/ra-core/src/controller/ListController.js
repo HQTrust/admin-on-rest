@@ -72,10 +72,10 @@ export class ListController extends Component {
     constructor(props) {
         super(props);
 
-        const enabledSources = {};
-        props.initiallyEnabledSources.forEach(
-            source => (enabledSources[source] = true)
-        );
+        const enabledSources = props.initiallyEnabledSources.reduce((sources, src) => (
+            { ...sources, [src]: true }
+        ), {});
+
         this.state = {
             activeFilters: {},
             enabledSources,
