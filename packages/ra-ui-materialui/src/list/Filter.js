@@ -23,10 +23,12 @@ export class Filter extends Component {
             resource,
             children,
             showFilter,
-            hideFilter,
+            hideActiveFilters,
+            showInactiveFilters,
             displayedFilters,
             filterButton,
             filterValues,
+            shouldBulkToggleFilters,
             ...rest
         } = this.props;
 
@@ -37,8 +39,11 @@ export class Filter extends Component {
                 resource={resource}
                 filters={React.Children.toArray(children)}
                 showFilter={showFilter}
+                hideActiveFilters={hideActiveFilters}
+                showInactiveFilters={showInactiveFilters}
                 displayedFilters={displayedFilters}
                 filterValues={filterValues}
+                shouldBulkToggleFilters={shouldBulkToggleFilters}
                 {...rest}
             />
         );
@@ -55,9 +60,12 @@ export class Filter extends Component {
             displayedFilters,
             formClasses,
             inActionsToolbar,
+            metaSources,
             showFilter,
             filterValues,
             setFilters,
+            shouldBulkToggleFilters,
+            setSourceActive,
             ...rest
         } = this.props;
 
@@ -72,6 +80,9 @@ export class Filter extends Component {
                 inActionsToolbar={inActionsToolbar}
                 initialValues={filterValues}
                 setFilters={setFilters}
+                shouldBulkToggleFilters={shouldBulkToggleFilters}
+                setSourceActive={setSourceActive}
+                metaSources={metaSources}
                 {...rest}
             />
         );
@@ -93,9 +104,14 @@ Filter.propTypes = {
     filterButton: PropTypes.element,
     filterValues: PropTypes.object,
     formClasses: PropTypes.object,
+    hideActiveFilters: PropTypes.func,
+    showInactiveFilters: PropTypes.func,
     hideFilter: PropTypes.func,
     inActionsToolbar: PropTypes.bool,
+    metaSources: PropTypes.arrayOf(PropTypes.string),
     setFilters: PropTypes.func,
+    setSourceActive: PropTypes.func,
+    shouldBulkToggleFilters: PropTypes.bool,
     showFilter: PropTypes.func,
     resource: PropTypes.string.isRequired,
 };

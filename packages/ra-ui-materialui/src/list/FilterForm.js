@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Field, reduxForm } from 'redux-form';
 import { CardContent } from 'material-ui/Card';
 import IconButton from 'material-ui/IconButton';
+import DefaultCheckbox from 'material-ui/Checkbox';
 import ActionHide from 'material-ui-icons/HighlightOff';
 import compose from 'recompose/compose';
 import withProps from 'recompose/withProps';
@@ -10,15 +11,21 @@ import { withStyles } from 'material-ui/styles';
 import classnames from 'classnames';
 import lodashSet from 'lodash/set';
 import { translate } from 'ra-core';
+import { FormControlLabel } from 'material-ui/Form';
 
 const styles = ({ palette: { primary1Color } }) => ({
     card: {
-        marginTop: '-14px',
-        paddingTop: 0,
+        padding: 0,
         display: 'flex',
-        justifyContent: 'flex-end',
-        alignItems: 'flex-end',
         flexWrap: 'wrap',
+    },
+    cardTitle: {},
+    checkbox: {},
+    checkboxCard: {},
+    formCard: {},
+    hiddenFormCard: {
+        backgroundColor: 'transparent',
+        boxShadow: 'none',
     },
     body: { display: 'flex', alignItems: 'flex-end' },
     spacer: { width: 48 },
@@ -92,21 +99,89 @@ export class FilterForm extends Component {
     handleHide = event =>
         this.props.hideFilter(event.currentTarget.dataset.key);
 
+    onSourceChange = source => event =>
+        this.props.setSourceActive(source, event.target.checked);
+
     render() {
         const {
+            CheckboxClass,
             classes = {},
             className,
+            displayedFilters,
+            enabledSources,
+            filters,
+            inActionsToolbar,
+            metaSources,
             resource,
             translate,
+            shouldBulkToggleFilters,
+            bulkToggleTitle,
+            filterTitle,
             ...rest
         } = this.props;
 
+        const shownFilters = this.getShownFilters();
+        const isFilterPanelVisible = Object.keys(displayedFilters).length > 0;
+        const showFilterPanel =
+            !inActionsToolbar &&
+            (shouldBulkToggleFilters && isFilterPanelVisible);
+        let sourceFilters;
+        if (showFilterPanel) {
+            sourceFilters = filters.filter(
+                filter => metaSources.indexOf(filter.props.source) === -1
+            );
+        }
+
         return (
             <div className={className} {...sanitizeRestProps(rest)}>
-                <CardContent className={classes.card}>
-                    {this.getShownFilters()
-                        .reverse()
-                        .map(filterElement => (
+                {showFilterPanel && (
+                    <CardContent
+                        className={classnames(
+                            classes.card,
+                            classes.checkboxCard
+                        )}
+                    >
+                        <div className={classes.cardTitle}>
+                            {bulkToggleTitle}
+                        </div>
+                        {sourceFilters.map(sourceFilter => {
+                            const source = sourceFilter.props.source;
+                            return (
+                                <FormControlLabel
+                                    key={source}
+                                    control={
+                                        <CheckboxClass
+                                            classes={{
+                                                default: classes.checkbox,
+                                            }}
+                                            checked={enabledSources[source]}
+                                            onChange={this.onSourceChange(
+                                                source
+                                            )}
+                                        />
+                                    }
+                                    label={sourceFilter.props.label}
+                                />
+                            );
+                        })}
+                    </CardContent>
+                )}
+                {
+                    <CardContent
+                        className={classnames(classes.card, {
+                            [classes.formCard]:
+                                !inActionsToolbar && showFilterPanel,
+                            [classes.hiddenFormCard]:
+                                inActionsToolbar || !showFilterPanel,
+                        })}
+                    >
+                        {!inActionsToolbar &&
+                            showFilterPanel && (
+                                <div className={classes.cardTitle}>
+                                    {filterTitle}
+                                </div>
+                            )}
+                        {shownFilters.reverse().map((filterElement, index) => (
                             <div
                                 key={filterElement.props.source}
                                 data-source={filterElement.props.source}
@@ -116,8 +191,23 @@ export class FilterForm extends Component {
                                     filterElement.props.containerClassName
                                 )}
                             >
-                                {filterElement.props.alwaysOn ? (
-                                    <div className={classes.spacer}>&nbsp;</div>
+                                <Field
+                                    allowEmpty
+                                    {...filterElement.props}
+                                    name={filterElement.props.source}
+                                    component={filterElement.type}
+                                    resource={resource}
+                                    record={emptyRecord}
+                                />
+                                {filterElement.props.alwaysOn ||
+                                shouldBulkToggleFilters ? (
+                                    <React.Fragment>
+                                        {index < shownFilters.length - 1 && (
+                                            <div className={classes.spacer}>
+                                                &nbsp;
+                                            </div>
+                                        )}
+                                    </React.Fragment>
                                 ) : (
                                     <IconButton
                                         className="hide-filter"
@@ -130,19 +220,10 @@ export class FilterForm extends Component {
                                         <ActionHide />
                                     </IconButton>
                                 )}
-                                <div>
-                                    <Field
-                                        allowEmpty
-                                        {...filterElement.props}
-                                        name={filterElement.props.source}
-                                        component={filterElement.type}
-                                        resource={resource}
-                                        record={emptyRecord}
-                                    />
-                                </div>
                             </div>
                         ))}
-                </CardContent>
+                    </CardContent>
+                }
                 <div className={classes.clearFix} />
             </div>
         );
@@ -150,6 +231,7 @@ export class FilterForm extends Component {
 }
 
 FilterForm.propTypes = {
+    CheckboxClass: PropTypes.object,
     resource: PropTypes.string.isRequired,
     filters: PropTypes.arrayOf(PropTypes.node).isRequired,
     displayedFilters: PropTypes.object.isRequired,
@@ -159,6 +241,18 @@ FilterForm.propTypes = {
     translate: PropTypes.func.isRequired,
     classes: PropTypes.object,
     className: PropTypes.string,
+    shouldBulkToggleFilters: PropTypes.bool,
+    disableSource: PropTypes.func,
+    enableSource: PropTypes.func,
+    enabledSources: PropTypes.object,
+    setSourceActive: PropTypes.func,
+    bulkToggleTitle: PropTypes.object,
+    filterTitle: PropTypes.object,
+    metaSources: PropTypes.arrayOf(PropTypes.string),
+};
+
+FilterForm.defaultProps = {
+    CheckboxClass: DefaultCheckbox,
 };
 
 export const mergeInitialValuesWithDefaultValues = ({

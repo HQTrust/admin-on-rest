@@ -29,9 +29,7 @@ const styles = theme => ({
         display: 'inline-flex',
         alignItems: 'center',
     },
-    iconPaddingStyle: {
-        paddingRight: '0.5em',
-    },
+    iconPaddingStyle: {},
 });
 
 const CreateButton = ({

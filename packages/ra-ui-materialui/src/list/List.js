@@ -15,10 +15,12 @@ import { ListController } from 'ra-core';
 import defaultTheme from '../defaultTheme';
 
 const styles = {
+    card: {},
     root: {},
     actions: {},
     header: {},
     noResults: { padding: 20 },
+    filtersContainer: {},
 };
 
 const sanitizeRestProps = ({
@@ -75,13 +77,19 @@ export const ListView = ({
     currentSort,
     data,
     defaultTitle,
+    disableSource,
     displayedFilters,
+    enableSource,
+    enabledSources,
     filters,
     filterValues,
     hasCreate,
+    hideActiveFilters,
+    showInactiveFilters,
     hideFilter,
     ids,
     isLoading,
+    metaSources,
     onSelect,
     onToggleItem,
     onUnselectItems,
@@ -94,6 +102,7 @@ export const ListView = ({
     setFilters,
     setPage,
     setSort,
+    setSourceActive,
     showFilter,
     title,
     total,
@@ -103,7 +112,11 @@ export const ListView = ({
     ...rest
 }) => {
     const titleElement = (
-        <TitleClass title={title} defaultTitle={defaultTitle} total={totalAll} />
+        <TitleClass
+            defaultTitle={defaultTitle}
+            title={title}
+            total={totalAll}
+        />
     );
 
     return (
@@ -111,7 +124,7 @@ export const ListView = ({
             className={classnames('list-page', classes.root, className)}
             {...sanitizeRestProps(rest)}
         >
-            <Card>
+            <Card className={classes.card}>
                 <Header
                     className={classes.header}
                     title={titleElement}
@@ -125,6 +138,9 @@ export const ListView = ({
                         filters,
                         filterValues,
                         hasCreate,
+                        hideActiveFilters,
+                        showInactiveFilters,
+                        hideFilter,
                         onUnselectItems,
                         refresh,
                         resource,
@@ -134,16 +150,23 @@ export const ListView = ({
                         total,
                     }}
                 />
-                {filters &&
-                    React.cloneElement(filters, {
-                        displayedFilters,
-                        filterValues,
-                        hideFilter,
-                        resource,
-                        setFilters,
-                        total,
-                        context: 'form',
-                    })}
+                <Card classes={{ root: classes.filtersContainer }}>
+                    {filters &&
+                        React.cloneElement(filters, {
+                            displayedFilters,
+                            enableSource,
+                            enabledSources,
+                            disableSource,
+                            filterValues,
+                            hideFilter,
+                            metaSources,
+                            resource,
+                            setFilters,
+                            setSourceActive,
+                            total,
+                            context: 'form',
+                        })}
+                </Card>
                 {isLoading || total > 0 ? (
                     <div key={version}>
                         {children &&
@@ -151,6 +174,7 @@ export const ListView = ({
                                 basePath,
                                 currentSort,
                                 data,
+                                enabledSources,
                                 hasBulkActions: !!bulkActions,
                                 ids,
                                 isLoading,
@@ -195,6 +219,7 @@ export const ListView = ({
 };
 
 ListView.propTypes = {
+    TitleClass: PropTypes.object.isRequired,
     actions: PropTypes.element,
     basePath: PropTypes.string,
     bulkActions: PropTypes.oneOfType([PropTypes.bool, PropTypes.element]),
@@ -207,13 +232,19 @@ ListView.propTypes = {
     }),
     data: PropTypes.object,
     defaultTitle: PropTypes.string,
+    disableSource: PropTypes.func,
     displayedFilters: PropTypes.object,
+    enableSource: PropTypes.func,
+    enabledSources: PropTypes.object,
     filters: PropTypes.element,
     filterValues: PropTypes.object,
     hasCreate: PropTypes.bool,
+    hideActiveFilters: PropTypes.func,
+    showInactiveFilters: PropTypes.func,
     hideFilter: PropTypes.func,
     ids: PropTypes.array,
     isLoading: PropTypes.bool,
+    metaSources: PropTypes.arrayOf(PropTypes.string),
     onSelect: PropTypes.func,
     onToggleItem: PropTypes.func,
     onUnselectItems: PropTypes.func,
@@ -226,6 +257,7 @@ ListView.propTypes = {
     setFilters: PropTypes.func,
     setPage: PropTypes.func,
     setSort: PropTypes.func,
+    setSourceActive: PropTypes.func,
     showFilter: PropTypes.func,
     title: PropTypes.any,
     total: PropTypes.number,
@@ -289,6 +321,8 @@ List.propTypes = {
     children: PropTypes.node,
     classes: PropTypes.object,
     className: PropTypes.string,
+    initiallyEnabledSources: PropTypes.arrayOf(PropTypes.string),
+    metaSources: PropTypes.arrayOf(PropTypes.string),
     filter: PropTypes.object,
     filters: PropTypes.element,
     pagination: PropTypes.element,
