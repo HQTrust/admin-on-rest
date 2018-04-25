@@ -38,7 +38,7 @@ const ShowView = ({
     actions = <DefaultActions />,
     basePath,
     children,
-    classes,
+    classes = {},
     className,
     defaultTitle,
     hasEdit,
