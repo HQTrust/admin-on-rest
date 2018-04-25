@@ -15,12 +15,12 @@ import { ListController } from 'ra-core';
 import defaultTheme from '../defaultTheme';
 
 const styles = {
-    card: {},
     root: {},
     actions: {},
     header: {},
     noResults: { padding: 20 },
     filtersContainer: {},
+    filtersContainerCollapsed: {},
 };
 
 const sanitizeRestProps = ({
@@ -124,96 +124,101 @@ export const ListView = ({
             className={classnames('list-page', classes.root, className)}
             {...sanitizeRestProps(rest)}
         >
-            <Card className={classes.card}>
-                <Header
-                    className={classes.header}
-                    title={titleElement}
-                    actions={React.cloneElement(actions, {
-                        className: classes.actions,
-                    })}
-                    actionProps={{
-                        basePath,
-                        bulkActions,
+            <Header
+                className={classes.header}
+                title={titleElement}
+                actions={React.cloneElement(actions, {
+                    className: classes.actions,
+                })}
+                actionProps={{
+                    basePath,
+                    bulkActions,
+                    displayedFilters,
+                    filters,
+                    filterValues,
+                    hasCreate,
+                    hideActiveFilters,
+                    showInactiveFilters,
+                    hideFilter,
+                    onUnselectItems,
+                    refresh,
+                    resource,
+                    selectedIds,
+                    setFilters,
+                    showFilter,
+                    total,
+                }}
+            />
+            <Card
+                classes={{
+                    root: classnames(classes.filtersContainer, {
+                        [classes.filtersContainerCollapsed]:
+                            Object.keys(displayedFilters).length === 0,
+                    }),
+                }}
+            >
+                {filters &&
+                    React.cloneElement(filters, {
                         displayedFilters,
-                        filters,
+                        enableSource,
+                        enabledSources,
+                        disableSource,
                         filterValues,
-                        hasCreate,
-                        hideActiveFilters,
-                        showInactiveFilters,
                         hideFilter,
-                        onUnselectItems,
-                        refresh,
+                        metaSources,
                         resource,
-                        selectedIds,
                         setFilters,
-                        showFilter,
+                        setSourceActive,
                         total,
-                    }}
-                />
-                <Card classes={{ root: classes.filtersContainer }}>
-                    {filters &&
-                        React.cloneElement(filters, {
-                            displayedFilters,
-                            enableSource,
-                            enabledSources,
-                            disableSource,
-                            filterValues,
-                            hideFilter,
-                            metaSources,
-                            resource,
-                            setFilters,
-                            setSourceActive,
-                            total,
-                            context: 'form',
-                        })}
-                </Card>
-                {isLoading || total > 0 ? (
-                    <div key={version}>
-                        {children &&
-                            React.cloneElement(children, {
-                                basePath,
-                                currentSort,
-                                data,
-                                enabledSources,
-                                hasBulkActions: !!bulkActions,
-                                ids,
-                                isLoading,
-                                onSelect,
-                                onToggleItem,
-                                resource,
-                                selectedIds,
-                                setSort,
-                                version,
-                            })}
-                        {!isLoading &&
-                            !ids.length && (
-                                <CardContent style={styles.noResults}>
-                                    <Typography variant="body1">
-                                        {translate(
-                                            'ra.navigation.no_more_results',
-                                            {
-                                                page,
-                                            }
-                                        )}
-                                    </Typography>
-                                </CardContent>
-                            )}
-                        {pagination &&
-                            React.cloneElement(pagination, {
-                                page,
-                                perPage,
-                                setPage,
-                                total,
-                            })}
-                    </div>
-                ) : (
-                    <CardContent className={classes.noResults}>
-                        <Typography variant="body1">
-                            {translate('ra.navigation.no_results')}
-                        </Typography>
-                    </CardContent>
-                )}
+                        context: 'form',
+                    })}
             </Card>
+            {isLoading || total > 0 ? (
+                <div key={version}>
+                    {children &&
+                        React.cloneElement(children, {
+                            basePath,
+                            currentSort,
+                            data,
+                            enabledSources,
+                            hasBulkActions: !!bulkActions,
+                            ids,
+                            isLoading,
+                            onSelect,
+                            onToggleItem,
+                            resource,
+                            selectedIds,
+                            setSort,
+                            version,
+                        })}
+                    {!isLoading &&
+                        !ids.length && (
+                            <CardContent style={styles.noResults}>
+                                <Typography variant="body1">
+                                    {translate(
+                                        'ra.navigation.no_more_results',
+                                        {
+                                            page,
+                                        }
+                                    )}
+                                </Typography>
+                            </CardContent>
+                        )}
+                    {pagination &&
+                        React.cloneElement(pagination, {
+                            page,
+                            perPage,
+                            setPage,
+                            total,
+                        })}
+                </div>
+            ) : (
+                <CardContent className={classes.noResults}>
+                    <Typography variant="body1">
+                        {translate('ra.navigation.no_results')}
+                    </Typography>
+                </CardContent>
+            )}
         </div>
     );
 };

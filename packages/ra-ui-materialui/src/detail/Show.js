@@ -54,7 +54,7 @@ const ShowView = ({
         className={classnames('show-page', className)}
         {...sanitizeRestProps(rest)}
     >
-        <Card className={classes.card} style={{ opacity: isLoading ? 0.8 : 1 }}>
+        <div className={classes.card} style={{ opacity: isLoading ? 0.8 : 1 }}>
             <Header
                 title={
                     <RecordTitle
@@ -79,7 +79,7 @@ const ShowView = ({
                     record,
                     version,
                 })}
-        </Card>
+        </div>
     </div>
 );
 
