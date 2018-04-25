@@ -12,6 +12,7 @@ const sanitizeRestProps = ({
     actions,
     title,
     children,
+    classes,
     className,
     crudGetOne,
     id,
@@ -37,6 +38,7 @@ const ShowView = ({
     actions = <DefaultActions />,
     basePath,
     children,
+    classes,
     className,
     defaultTitle,
     hasEdit,
@@ -52,7 +54,7 @@ const ShowView = ({
         className={classnames('show-page', className)}
         {...sanitizeRestProps(rest)}
     >
-        <Card style={{ opacity: isLoading ? 0.8 : 1 }}>
+        <Card className={classes.card} style={{ opacity: isLoading ? 0.8 : 1 }}>
             <Header
                 title={
                     <RecordTitle
@@ -98,7 +100,7 @@ ShowView.propTypes = {
 
 /**
  * Page component for the Show view
- * 
+ *
  * The `<Show>` component renders the page title and actions,
  * fetches the record from the data provider.
  * It is not responsible for rendering the actual form -
@@ -109,14 +111,14 @@ ShowView.propTypes = {
  *
  * - title
  * - actions
- * 
+ *
  * Both expect an element for value.
- * 
- * @example     
+ *
+ * @example
  *     // in src/posts.js
  *     import React from 'react';
  *     import { Show, SimpleShowLayout, TextField } from 'react-admin';
- *     
+ *
  *     export const PostShow = (props) => (
  *         <Show {...props}>
  *             <SimpleShowLayout>
@@ -128,9 +130,9 @@ ShowView.propTypes = {
  *     // in src/App.js
  *     import React from 'react';
  *     import { Admin, Resource } from 'react-admin';
- *     
+ *
  *     import { PostShow } from './posts';
- *     
+ *
  *     const App = () => (
  *         <Admin dataProvider={...}>
  *             <Resource name="posts" show={PostShow} />
