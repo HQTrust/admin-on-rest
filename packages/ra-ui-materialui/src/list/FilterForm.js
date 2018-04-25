@@ -79,20 +79,13 @@ const sanitizeRestProps = ({
 
 export class FilterForm extends Component {
     getShownFilters() {
-        const {
-            filters,
-            displayedFilters,
-            inActionsToolbar,
-            initialValues,
-        } = this.props;
+        const { filters, displayedFilters, inActionsToolbar } = this.props;
 
         return filters.filter(
             filterElement =>
                 inActionsToolbar === filterElement.props.inActionsToolbar &&
                 (filterElement.props.alwaysOn ||
-                    displayedFilters[filterElement.props.source] ||
-                    typeof initialValues[filterElement.props.source] !==
-                        'undefined')
+                    displayedFilters[filterElement.props.source])
         );
     }
 
