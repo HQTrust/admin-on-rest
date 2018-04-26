@@ -12,6 +12,7 @@ const styles = {
 };
 
 export const ChipField = ({
+    ChipClass,
     className,
     classes = {},
     source,
@@ -19,7 +20,7 @@ export const ChipField = ({
     ...rest
 }) => {
     return (
-        <Chip
+        <ChipClass
             className={classnames(classes.chip, className)}
             label={get(record, source)}
             {...sanitizeRestProps(rest)}
@@ -28,11 +29,16 @@ export const ChipField = ({
 };
 
 ChipField.propTypes = {
+    ChipClass: PropTypes.func.isRequired,
     className: PropTypes.string,
     classes: PropTypes.object,
     elStyle: PropTypes.object,
-    source: PropTypes.string.isRequired,
     record: PropTypes.object,
+    source: PropTypes.string.isRequired,
+};
+
+ChipField.defaultProps = {
+    ChipClass: Chip,
 };
 
 const PureChipField = withStyles(styles)(pure(ChipField));
