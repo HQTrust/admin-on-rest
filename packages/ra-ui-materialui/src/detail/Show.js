@@ -69,6 +69,7 @@ const ShowView = ({
                     data: record,
                     hasList,
                     hasEdit,
+                    record,
                     resource,
                 }}
             />
