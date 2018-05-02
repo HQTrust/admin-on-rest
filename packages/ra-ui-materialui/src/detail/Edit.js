@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Card, { CardContent } from 'material-ui/Card';
 import classnames from 'classnames';
 import { EditController } from 'ra-core';
 
@@ -56,7 +55,7 @@ const EditView = ({
         className={classnames('edit-page', className)}
         {...sanitizeRestProps(rest)}
     >
-        <Card>
+        {(actions || title) && (
             <Header
                 title={
                     <RecordTitle
@@ -74,22 +73,22 @@ const EditView = ({
                     resource,
                 }}
             />
-            {record ? (
-                React.cloneElement(children, {
-                    save,
-                    resource,
-                    basePath,
-                    record,
-                    version,
-                    redirect:
-                        typeof children.props.redirect === 'undefined'
-                            ? redirect
-                            : children.props.redirect,
-                })
-            ) : (
-                <CardContent>&nbsp;</CardContent>
-            )}
-        </Card>
+        )}
+        {record ? (
+            React.cloneElement(children, {
+                save,
+                resource,
+                basePath,
+                record,
+                version,
+                redirect:
+                    typeof children.props.redirect === 'undefined'
+                        ? redirect
+                        : children.props.redirect,
+            })
+        ) : (
+            <span>&nbsp;</span>
+        )}
     </div>
 );
 
