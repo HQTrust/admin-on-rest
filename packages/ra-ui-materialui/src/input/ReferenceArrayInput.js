@@ -9,11 +9,11 @@ import ReferenceError from './ReferenceError';
 
 const sanitizeRestProps = ({
     alwaysOn,
+    attributeName,
     basePath,
     component,
     crudGetMany,
     crudGetMatching,
-    defaultValue,
     filterToQuery,
     formClassName,
     initializeForm,
@@ -225,6 +225,7 @@ export const ReferenceArrayInput = ({ children, ...props }) => {
 
 ReferenceArrayInput.propTypes = {
     allowEmpty: PropTypes.bool.isRequired,
+    attributeName: PropTypes.string,
     basePath: PropTypes.string,
     children: PropTypes.element.isRequired,
     className: PropTypes.string,
