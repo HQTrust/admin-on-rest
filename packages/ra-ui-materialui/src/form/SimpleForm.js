@@ -72,6 +72,13 @@ export class SimpleForm extends Component {
                 className={classnames('simple-form', className)}
                 {...sanitizeRestProps(rest)}
             >
+                {toolbar &&
+                    React.cloneElement(toolbar, {
+                        handleSubmitWithRedirect: this.handleSubmitWithRedirect,
+                        invalid,
+                        pristine,
+                        submitOnEnter,
+                    })}
                 <div className={classes.form} key={version}>
                     {Children.map(children, input => (
                         <FormInput
@@ -82,13 +89,6 @@ export class SimpleForm extends Component {
                         />
                     ))}
                 </div>
-                {toolbar &&
-                    React.cloneElement(toolbar, {
-                        handleSubmitWithRedirect: this.handleSubmitWithRedirect,
-                        invalid,
-                        pristine,
-                        submitOnEnter,
-                    })}
             </form>
         );
     }
