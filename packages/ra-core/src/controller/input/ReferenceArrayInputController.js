@@ -178,16 +178,16 @@ export class ReferenceArrayInputController extends Component {
 
     render() {
         const {
-            attributeName,
             children,
             input,
             matchingReferences,
             onChange,
             record,
             referenceRecords,
+            source,
             translate,
         } = this.props;
-        const givenRecords = get(record, attributeName);
+        const givenRecords = get(record, source);
         const defaultValue = givenRecords
             ? givenRecords.map(r => r.id)
             : undefined;
@@ -215,7 +215,6 @@ export class ReferenceArrayInputController extends Component {
 
 ReferenceArrayInputController.propTypes = {
     allowEmpty: PropTypes.bool.isRequired,
-    attributeName: PropTypes.string,
     basePath: PropTypes.string,
     children: PropTypes.func.isRequired,
     className: PropTypes.string,
