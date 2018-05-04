@@ -63,6 +63,7 @@ export class SimpleForm extends Component {
             resource,
             submitOnEnter,
             toolbar,
+            toolbarPosition,
             version,
             ...rest
         } = this.props;
@@ -72,6 +73,14 @@ export class SimpleForm extends Component {
                 className={classnames('simple-form', className)}
                 {...sanitizeRestProps(rest)}
             >
+                {toolbar &&
+                    toolbarPosition === 'top' &&
+                    React.cloneElement(toolbar, {
+                        handleSubmitWithRedirect: this.handleSubmitWithRedirect,
+                        invalid,
+                        pristine,
+                        submitOnEnter,
+                    })}
                 <div className={classes.form} key={version}>
                     {Children.map(children, input => (
                         <FormInput
@@ -83,6 +92,7 @@ export class SimpleForm extends Component {
                     ))}
                 </div>
                 {toolbar &&
+                    toolbarPosition === 'bottom' &&
                     React.cloneElement(toolbar, {
                         handleSubmitWithRedirect: this.handleSubmitWithRedirect,
                         invalid,
@@ -109,6 +119,7 @@ SimpleForm.propTypes = {
     save: PropTypes.func, // the handler defined in the parent, which triggers the REST submission
     submitOnEnter: PropTypes.bool,
     toolbar: PropTypes.element,
+    toolbarPosition: PropTypes.oneOf(['bottom', 'top']),
     validate: PropTypes.func,
     version: PropTypes.number,
 };
@@ -116,6 +127,7 @@ SimpleForm.propTypes = {
 SimpleForm.defaultProps = {
     submitOnEnter: true,
     toolbar: <Toolbar />,
+    toolbarPosition: 'bottom',
 };
 
 const enhance = compose(
