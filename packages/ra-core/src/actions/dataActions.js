@@ -356,7 +356,6 @@ export const crudCustom = (resource, requestPath, method, params, meta) => ({
         method,
         requestPath,
         resource,
-        reducerAction: meta.reducerAction,
         fetch: CUSTOM,
         onSuccess: {
             notification: meta.successNotification,

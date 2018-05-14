@@ -53,7 +53,7 @@ export function* handleFetch(dataProvider, action) {
             throw new Error('REST response must contain a data key');
         }
         yield put({
-            type: `${meta.reducerAction || type}_SUCCESS`,
+            type: `${type}_SUCCESS`,
             payload: response,
             requestPayload: payload,
             meta: {
@@ -66,7 +66,7 @@ export function* handleFetch(dataProvider, action) {
         yield put({ type: FETCH_END });
     } catch (error) {
         yield put({
-            type: `${meta.reducerAction || type}_FAILURE`,
+            type: `${type}_FAILURE`,
             error: error.message ? error.message : error,
             payload: error.body ? error.body : null,
             requestPayload: payload,
