@@ -81,12 +81,12 @@ export const ListView = ({
     displayedFilters,
     enableSource,
     enabledSources,
-    filters,
     filterValues,
+    filters,
     hasCreate,
     hideActiveFilters,
-    showInactiveFilters,
     hideFilter,
+    hideHeader,
     ids,
     isLoading,
     metaSources,
@@ -104,6 +104,7 @@ export const ListView = ({
     setSort,
     setSourceActive,
     showFilter,
+    showInactiveFilters,
     title,
     total,
     totalAll,
@@ -124,31 +125,33 @@ export const ListView = ({
             className={classnames('list-page', classes.root, className)}
             {...sanitizeRestProps(rest)}
         >
-            <Header
-                className={classes.header}
-                title={titleElement}
-                actions={React.cloneElement(actions, {
-                    className: classes.actions,
-                })}
-                actionProps={{
-                    basePath,
-                    bulkActions,
-                    displayedFilters,
-                    filters,
-                    filterValues,
-                    hasCreate,
-                    hideActiveFilters,
-                    showInactiveFilters,
-                    hideFilter,
-                    onUnselectItems,
-                    refresh,
-                    resource,
-                    selectedIds,
-                    setFilters,
-                    showFilter,
-                    total,
-                }}
-            />
+            {!hideHeader &&
+                <Header
+                    className={classes.header}
+                    title={titleElement}
+                    actions={React.cloneElement(actions, {
+                        className: classes.actions,
+                    })}
+                    actionProps={{
+                        basePath,
+                        bulkActions,
+                        displayedFilters,
+                        filters,
+                        filterValues,
+                        hasCreate,
+                        hideActiveFilters,
+                        showInactiveFilters,
+                        hideFilter,
+                        onUnselectItems,
+                        refresh,
+                        resource,
+                        selectedIds,
+                        setFilters,
+                        showFilter,
+                        total,
+                    }}
+                />
+            }
             <Card
                 classes={{
                     root: classnames(classes.filtersContainer, {
@@ -241,12 +244,12 @@ ListView.propTypes = {
     displayedFilters: PropTypes.object,
     enableSource: PropTypes.func,
     enabledSources: PropTypes.object,
-    filters: PropTypes.element,
     filterValues: PropTypes.object,
+    filters: PropTypes.element,
     hasCreate: PropTypes.bool,
     hideActiveFilters: PropTypes.func,
-    showInactiveFilters: PropTypes.func,
     hideFilter: PropTypes.func,
+    hideHeader: PropTypes.bool,
     ids: PropTypes.array,
     isLoading: PropTypes.bool,
     metaSources: PropTypes.arrayOf(PropTypes.string),
@@ -264,6 +267,7 @@ ListView.propTypes = {
     setSort: PropTypes.func,
     setSourceActive: PropTypes.func,
     showFilter: PropTypes.func,
+    showInactiveFilters: PropTypes.func,
     title: PropTypes.any,
     total: PropTypes.number,
     totalAll: PropTypes.number,
