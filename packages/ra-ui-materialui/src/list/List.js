@@ -152,16 +152,16 @@ export const ListView = ({
                     }}
                 />
             }
-            <Card
-                classes={{
-                    root: classnames(classes.filtersContainer, {
-                        [classes.filtersContainerCollapsed]:
-                            Object.keys(displayedFilters).length === 0,
-                    }),
-                }}
-            >
-                {filters &&
-                    React.cloneElement(filters, {
+            {filters && (
+                <Card
+                    classes={{
+                        root: classnames(classes.filtersContainer, {
+                            [classes.filtersContainerCollapsed]:
+                                Object.keys(displayedFilters).length === 0,
+                        }),
+                    }}
+                >
+                    {React.cloneElement(filters, {
                         displayedFilters,
                         enableSource,
                         enabledSources,
@@ -175,7 +175,8 @@ export const ListView = ({
                         total,
                         context: 'form',
                     })}
-            </Card>
+                </Card>
+            )}
             {isLoading || total > 0 ? (
                 <div key={version}>
                     {children &&
@@ -191,7 +192,9 @@ export const ListView = ({
                             onToggleItem,
                             resource,
                             selectedIds,
+                            setFilters,
                             setSort,
+                            total,
                             version,
                         })}
                     {!isLoading &&
