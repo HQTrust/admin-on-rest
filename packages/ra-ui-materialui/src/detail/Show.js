@@ -56,6 +56,7 @@ const ShowView = ({
     >
         <div className={classes.card} style={{ opacity: isLoading ? 0.8 : 1 }}>
             <Header
+                className={classes.header}
                 title={
                     <RecordTitle
                         title={title}
@@ -89,6 +90,7 @@ ShowView.propTypes = {
     basePath: PropTypes.string,
     children: PropTypes.element,
     className: PropTypes.string,
+    classes: PropTypes.object,
     defaultTitle: PropTypes.any,
     hasEdit: PropTypes.bool,
     hasList: PropTypes.bool,
