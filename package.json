@@ -2,7 +2,8 @@
     "private": true,
     "name": "react-admin-lerna",
     "scripts": {
-        "test": "make test"
+        "test": "make test",
+        "publish:hqtrust": "./bin/publish-builds.sh"
     },
     "jest": {
         "setupTestFrameworkScriptFile": "./test-setup.js"
