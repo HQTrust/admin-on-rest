@@ -8,8 +8,8 @@ import {
     TextField,
     BooleanField,
 } from 'react-admin';
-import Card, { CardHeader, CardContent } from 'material-ui/Card';
-import { withStyles } from 'material-ui/styles';
+import Card, { CardHeader, CardContent } from '@material-ui/core/Card';
+import { withStyles } from '@material-ui/core/styles';
 import CustomerReferenceField from '../visitors/CustomerReferenceField';
 
 const listStyles = theme => ({

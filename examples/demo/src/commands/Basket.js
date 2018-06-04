@@ -7,11 +7,11 @@ import Table, {
     TableHead,
     TableCell,
     TableRow,
-} from 'material-ui/Table';
-import Paper from 'material-ui/Paper';
+} from '@material-ui/core/Table';
+import Paper from '@material-ui/core/Paper';
 import { translate, crudGetMany as crudGetManyAction } from 'react-admin';
 import compose from 'recompose/compose';
-import withStyles from 'material-ui/styles/withStyles';
+import withStyles from '@material-ui/core/styles/withStyles';
 
 const styles = {
     container: {

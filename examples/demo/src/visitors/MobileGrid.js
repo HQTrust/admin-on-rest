@@ -1,8 +1,8 @@
 // in src/comments.js
 import React from 'react';
 import { DateField, EditButton, translate, NumberField } from 'react-admin';
-import Card, { CardHeader, CardContent } from 'material-ui/Card';
-import { withStyles } from 'material-ui/styles';
+import Card, { CardHeader, CardContent } from '@material-ui/core/Card';
+import { withStyles } from '@material-ui/core/styles';
 import AvatarField from './AvatarField';
 import { ColoredNumberField } from './index';
 import SegmentsField from './SegmentsField';

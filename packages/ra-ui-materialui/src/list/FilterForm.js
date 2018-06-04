@@ -1,17 +1,17 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Field, reduxForm } from 'redux-form';
-import { CardContent } from 'material-ui/Card';
-import IconButton from 'material-ui/IconButton';
-import DefaultCheckbox from 'material-ui/Checkbox';
+import CardContent from '@material-ui/core/CardContent';
+import IconButton from '@material-ui/core/IconButton';
+import DefaultCheckbox from '@material-ui/core/Checkbox';
 import ActionHide from 'material-ui-icons/HighlightOff';
 import compose from 'recompose/compose';
 import withProps from 'recompose/withProps';
-import { withStyles } from 'material-ui/styles';
+import { withStyles } from '@material-ui/core/styles';
 import classnames from 'classnames';
 import lodashSet from 'lodash/set';
 import { translate } from 'ra-core';
-import { FormControlLabel } from 'material-ui/Form';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
 
 const styles = ({ palette: { primary1Color } }) => ({
     card: {

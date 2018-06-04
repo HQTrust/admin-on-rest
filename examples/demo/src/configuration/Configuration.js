@@ -1,9 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import Card, { CardContent } from 'material-ui/Card';
-import Button from 'material-ui/Button';
+import Card, { CardContent } from '@material-ui/core/Card';
+import Button from '@material-ui/core/Button';
 import { translate, changeLocale, ViewTitle } from 'react-admin';
-import withStyles from 'material-ui/styles/withStyles';
+import withStyles from '@material-ui/core/styles/withStyles';
 import compose from 'recompose/compose';
 import { changeTheme } from './actions';
 

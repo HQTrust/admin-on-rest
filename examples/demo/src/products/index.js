@@ -19,9 +19,9 @@ import {
     required,
 } from 'react-admin';
 import Icon from 'material-ui-icons/Collections';
-import Chip from 'material-ui/Chip';
+import Chip from '@material-ui/core/Chip';
 import RichTextInput from 'ra-input-rich-text';
-import withStyles from 'material-ui/styles/withStyles';
+import withStyles from '@material-ui/core/styles/withStyles';
 
 import CustomerReferenceField from '../visitors/CustomerReferenceField';
 import StarRatingField from '../reviews/StarRatingField';
