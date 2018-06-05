@@ -97,6 +97,9 @@ export class FilterButton extends Component {
             filterValues,
             translate,
             shouldBulkToggleFilters,
+            // Don't spread unused props
+            showInactiveFilters,
+            hideActiveFilters,
             ...rest
         } = this.props;
         const { open, anchorEl } = this.state;

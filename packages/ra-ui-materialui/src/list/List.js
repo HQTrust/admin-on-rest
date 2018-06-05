@@ -47,6 +47,7 @@ const sanitizeRestProps = ({
     ids,
     total,
     totalAll,
+    initiallyEnabledSources,
     isLoading,
     translate,
     version,
@@ -231,7 +232,7 @@ export const ListView = ({
 };
 
 ListView.propTypes = {
-    TitleClass: PropTypes.object.isRequired,
+    TitleClass: PropTypes.oneOfType([PropTypes.object, PropTypes.func]).isRequired,
     actions: PropTypes.element,
     basePath: PropTypes.string,
     bulkActions: PropTypes.oneOfType([PropTypes.bool, PropTypes.element]),
@@ -328,7 +329,7 @@ const List = props => (
 
 List.propTypes = {
     // the props you can change
-    TitleClass: PropTypes.object.isRequired,
+    TitleClass: PropTypes.oneOfType([PropTypes.object, PropTypes.func]).isRequired,
     actions: PropTypes.element,
     bulkActions: PropTypes.oneOfType([PropTypes.element, PropTypes.bool]),
     children: PropTypes.node,

@@ -29,7 +29,6 @@ export class Filter extends Component {
             filterButton,
             filterValues,
             shouldBulkToggleFilters,
-            ...rest
         } = this.props;
 
         return (
@@ -44,7 +43,6 @@ export class Filter extends Component {
                 displayedFilters={displayedFilters}
                 filterValues={filterValues}
                 shouldBulkToggleFilters={shouldBulkToggleFilters}
-                {...rest}
             />
         );
     }

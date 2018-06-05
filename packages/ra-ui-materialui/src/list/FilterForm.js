@@ -21,7 +21,6 @@ const styles = ({ palette: { primary1Color } }) => ({
         flexWrap: 'wrap',
     },
     cardTitle: {},
-    checkbox: {},
     checkboxCard: {},
     formCard: {},
     hiddenFormCard: {
@@ -49,8 +48,11 @@ const sanitizeRestProps = ({
     clearSubmitErrors,
     destroy,
     dirty,
+    disableSource,
     dispatch,
     displayedFilters,
+    enableSource,
+    filterButton,
     filterValues,
     handleSubmit,
     hideFilter,
@@ -65,6 +67,7 @@ const sanitizeRestProps = ({
     save,
     setFilter,
     setFilters,
+    setSourceActive,
     submit,
     submitFailed,
     submitSucceeded,
@@ -146,9 +149,6 @@ export class FilterForm extends Component {
                                         key={source}
                                         control={
                                             <CheckboxClass
-                                                classes={{
-                                                    default: classes.checkbox,
-                                                }}
                                                 checked={enabledSources[source]}
                                                 onChange={this.onSourceChange(
                                                     source
@@ -217,7 +217,7 @@ export class FilterForm extends Component {
 }
 
 FilterForm.propTypes = {
-    CheckboxClass: PropTypes.object,
+    CheckboxClass: PropTypes.oneOfType([PropTypes.object, PropTypes.func]),
     resource: PropTypes.string.isRequired,
     filters: PropTypes.arrayOf(PropTypes.node).isRequired,
     displayedFilters: PropTypes.object.isRequired,
