@@ -22,13 +22,15 @@ const styles = ({ palette: { primary1Color } }) => ({
         flexWrap: 'wrap',
     },
     cardTitle: {},
+    checkbox: { height: 24 },
     checkboxCard: {},
+    checkboxWrapper: { display: 'flex' },
     formCard: {},
     hiddenFormCard: {
         backgroundColor: 'transparent',
         boxShadow: 'none',
     },
-    inputContainer: { marginBottom: 24 },
+    inputContainer: { marginBottom: 8 },
     resetButton: { alignSelf: 'flex-end', margin: 'auto 0 0' },
     body: { display: 'flex', alignItems: 'flex-end' },
     spacer: { width: 48 },
@@ -147,23 +149,33 @@ export class FilterForm extends Component {
                             <div className={classes.cardTitle}>
                                 {bulkToggleTitle}
                             </div>
-                            {sourceFilters.map(sourceFilter => {
-                                const source = sourceFilter.props.source;
-                                return (
-                                    <FormControlLabel
-                                        key={source}
-                                        control={
-                                            <CheckboxClass
-                                                checked={enabledSources[source]}
-                                                onChange={this.onSourceChange(
-                                                    source
-                                                )}
+                            <Grid container spacing={8}>
+                                {sourceFilters.map(sourceFilter => {
+                                    const source = sourceFilter.props.source;
+                                    return (
+                                        <Grid
+                                            className={classes.checkboxWrapper}
+                                            item
+                                            sm={12}
+                                            md={6}
+                                        >
+                                            <FormControlLabel
+                                                key={source}
+                                                control={
+                                                    <CheckboxClass
+                                                        classes={{ root: classes.checkbox }}
+                                                        checked={enabledSources[source]}
+                                                        onChange={this.onSourceChange(
+                                                            source
+                                                        )}
+                                                    />
+                                                }
+                                                label={sourceFilter.props.label}
                                             />
-                                        }
-                                        label={sourceFilter.props.label}
-                                    />
-                                );
-                            })}
+                                        </Grid>
+                                    );
+                                })}
+                            </Grid>
                         </CardContent>
                         <CardContent
                             className={classnames(classes.card, {
@@ -220,7 +232,6 @@ export class FilterForm extends Component {
                         </CardContent>
                     </React.Fragment>
                 )}
-                <div className={classes.clearFix} />
             </div>
         );
     }
