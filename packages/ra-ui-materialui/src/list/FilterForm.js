@@ -129,93 +129,87 @@ export class FilterForm extends Component {
         return (
             <div className={className} {...sanitizeRestProps(rest)}>
                 {showFilterPanel && (
-                    <CardContent
-                        className={classnames(
-                            classes.card,
-                            classes.checkboxCard
-                        )}
-                    >
-                        <div className={classes.cardTitle}>
-                            {bulkToggleTitle}
-                        </div>
-                        {sourceFilters.map(sourceFilter => {
-                            const source = sourceFilter.props.source;
-                            return (
-                                <FormControlLabel
-                                    key={source}
-                                    control={
-                                        <CheckboxClass
-                                            classes={{
-                                                default: classes.checkbox,
-                                            }}
-                                            checked={enabledSources[source]}
-                                            onChange={this.onSourceChange(
-                                                source
-                                            )}
-                                        />
-                                    }
-                                    label={sourceFilter.props.label}
-                                />
-                            );
-                        })}
-                    </CardContent>
-                )}
-                {
-                    <CardContent
-                        className={classnames(classes.card, {
-                            [classes.formCard]:
-                                !inActionsToolbar && showFilterPanel,
-                            [classes.hiddenFormCard]:
-                                inActionsToolbar || !showFilterPanel,
-                        })}
-                    >
-                        {!inActionsToolbar &&
-                            showFilterPanel && (
-                                <div className={classes.cardTitle}>
-                                    {filterTitle}
-                                </div>
+                    <React.Fragment>
+                        <CardContent
+                            className={classnames(
+                                classes.card,
+                                classes.checkboxCard
                             )}
-
-                        <Grid container spacing={16}>
-                            {shownFilters.map(filterElement => (
-                                <Grid
-                                    key={filterElement.props.source}
-                                    item
-                                    xs={12}
-                                    sm={6}
-                                    md={4}
-                                    className={
-                                        filterElement.props.containerClassName
-                                    }
-                                >
-                                    <Field
-                                        allowEmpty
-                                        {...filterElement.props}
-                                        name={filterElement.props.source}
-                                        component={filterElement.type}
-                                        resource={resource}
-                                        record={emptyRecord}
+                        >
+                            <div className={classes.cardTitle}>
+                                {bulkToggleTitle}
+                            </div>
+                            {sourceFilters.map(sourceFilter => {
+                                const source = sourceFilter.props.source;
+                                return (
+                                    <FormControlLabel
+                                        key={source}
+                                        control={
+                                            <CheckboxClass
+                                                classes={{
+                                                    default: classes.checkbox,
+                                                }}
+                                                checked={enabledSources[source]}
+                                                onChange={this.onSourceChange(
+                                                    source
+                                                )}
+                                            />
+                                        }
+                                        label={sourceFilter.props.label}
                                     />
-                                    {!filterElement.props.alwaysOn &&
-                                    !shouldBulkToggleFilters ? (
-                                        <IconButton
-                                            className="hide-filter"
-                                            onClick={this.handleHide}
-                                            data-key={
-                                                filterElement.props.source
-                                            }
-                                            tooltip={translate(
-                                                'ra.action.remove_filter'
-                                            )}
-                                        >
-                                            <ActionHide />
-                                        </IconButton>
-                                    ) : null}
-                                </Grid>
-                            ))}
-                        </Grid>
-                    </CardContent>
-                }
+                                );
+                            })}
+                        </CardContent>
+                        <CardContent
+                            className={classnames(classes.card, {
+                                [classes.formCard]:
+                                    !inActionsToolbar && showFilterPanel,
+                                [classes.hiddenFormCard]:
+                                    inActionsToolbar || !showFilterPanel,
+                            })}
+                        >
+                            {!inActionsToolbar &&
+                                showFilterPanel && (
+                                    <div className={classes.cardTitle}>
+                                        {filterTitle}
+                                    </div>
+                                )}
+
+                            <Grid container spacing={16}>
+                                {shownFilters.map(filterElement => (
+                                    <Grid
+                                        key={filterElement.props.source}
+                                        item
+                                        xs={12}
+                                        sm={6}
+                                        md={4}
+                                        className={
+                                            filterElement.props.containerClassName
+                                        }
+                                    >
+                                        {filterElement}
+
+                                        {!filterElement.props.alwaysOn &&
+                                        !shouldBulkToggleFilters ? (
+                                            <IconButton
+                                                className="hide-filter"
+                                                onClick={this.handleHide}
+                                                data-key={
+                                                    filterElement.props.source
+                                                }
+                                                tooltip={translate(
+                                                    'ra.action.remove_filter'
+                                                )}
+                                            >
+                                                <ActionHide />
+                                            </IconButton>
+                                        ) : null}
+                                    </Grid>
+                                ))}
+                            </Grid>
+                        </CardContent>
+                    </React.Fragment>
+                )}
                 <div className={classes.clearFix} />
             </div>
         );
