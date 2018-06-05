@@ -170,6 +170,7 @@ export const ListView = ({
                         disableSource,
                         filterValues,
                         hideFilter,
+                        hideActiveFilters,
                         metaSources,
                         resource,
                         setFilters,
