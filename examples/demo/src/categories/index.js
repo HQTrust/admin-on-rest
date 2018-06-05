@@ -11,7 +11,7 @@ import {
     TextField,
     TextInput,
 } from 'react-admin';
-import Icon from 'material-ui-icons/Bookmark';
+import Icon from '@material-ui/icons/Bookmark';
 import withStyles from '@material-ui/core/styles/withStyles';
 
 import ThumbnailField from '../products/ThumbnailField';

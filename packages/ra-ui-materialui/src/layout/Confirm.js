@@ -8,8 +8,8 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import Button from '@material-ui/core/Button';
 import { withStyles } from '@material-ui/core/styles';
 import { fade } from '@material-ui/core/styles/colorManipulator';
-import ActionCheck from 'material-ui-icons/CheckCircle';
-import AlertError from 'material-ui-icons/ErrorOutline';
+import ActionCheck from '@material-ui/icons/CheckCircle';
+import AlertError from '@material-ui/icons/ErrorOutline';
 import classnames from 'classnames';
 
 const styles = theme => ({

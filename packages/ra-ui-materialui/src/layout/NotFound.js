@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Button from '@material-ui/core/Button';
-import HotTub from 'material-ui-icons/HotTub';
-import History from 'material-ui-icons/History';
+import HotTub from '@material-ui/icons/HotTub';
+import History from '@material-ui/icons/History';
 import { withStyles } from '@material-ui/core/styles';
 import Hidden from '@material-ui/core/Hidden';
 import compose from 'recompose/compose';

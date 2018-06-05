@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import onlyUpdateForKeys from 'recompose/onlyUpdateForKeys';
 import Button from '@material-ui/core/Button';
-import ContentAdd from 'material-ui-icons/Add';
+import ContentAdd from '@material-ui/icons/Add';
 import { withStyles } from '@material-ui/core/styles';
 import compose from 'recompose/compose';
 import classnames from 'classnames';

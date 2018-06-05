@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import compose from 'recompose/compose';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import Typography from '@material-ui/core/Typography';
-import CloseIcon from 'material-ui-icons/RemoveCircleOutline';
+import CloseIcon from '@material-ui/icons/RemoveCircleOutline';
 import Button from '@material-ui/core/Button';
-import AddIcon from 'material-ui-icons/AddCircleOutline';
+import AddIcon from '@material-ui/icons/AddCircleOutline';
 import { withStyles } from '@material-ui/core/styles';
 import { translate } from 'ra-core';
 
