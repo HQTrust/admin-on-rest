@@ -4,6 +4,7 @@ import { Field, reduxForm } from 'redux-form';
 import CardContent from '@material-ui/core/CardContent';
 import IconButton from '@material-ui/core/IconButton';
 import DefaultCheckbox from '@material-ui/core/Checkbox';
+import Grid from '@material-ui/core/Grid';
 import ActionHide from 'material-ui-icons/HighlightOff';
 import compose from 'recompose/compose';
 import withProps from 'recompose/withProps';
@@ -174,47 +175,45 @@ export class FilterForm extends Component {
                                     {filterTitle}
                                 </div>
                             )}
-                        {shownFilters.reverse().map((filterElement, index) => (
-                            <div
-                                key={filterElement.props.source}
-                                data-source={filterElement.props.source}
-                                className={classnames(
-                                    'filter-field',
-                                    classes.body,
-                                    filterElement.props.containerClassName
-                                )}
-                            >
-                                <Field
-                                    allowEmpty
-                                    {...filterElement.props}
-                                    name={filterElement.props.source}
-                                    component={filterElement.type}
-                                    resource={resource}
-                                    record={emptyRecord}
-                                />
-                                {filterElement.props.alwaysOn ||
-                                shouldBulkToggleFilters ? (
-                                    <React.Fragment>
-                                        {index < shownFilters.length - 1 && (
-                                            <div className={classes.spacer}>
-                                                &nbsp;
-                                            </div>
-                                        )}
-                                    </React.Fragment>
-                                ) : (
-                                    <IconButton
-                                        className="hide-filter"
-                                        onClick={this.handleHide}
-                                        data-key={filterElement.props.source}
-                                        tooltip={translate(
-                                            'ra.action.remove_filter'
-                                        )}
-                                    >
-                                        <ActionHide />
-                                    </IconButton>
-                                )}
-                            </div>
-                        ))}
+
+                        <Grid container spacing={16}>
+                            {shownFilters.map(filterElement => (
+                                <Grid
+                                    key={filterElement.props.source}
+                                    item
+                                    xs={12}
+                                    sm={6}
+                                    md={4}
+                                    className={
+                                        filterElement.props.containerClassName
+                                    }
+                                >
+                                    <Field
+                                        allowEmpty
+                                        {...filterElement.props}
+                                        name={filterElement.props.source}
+                                        component={filterElement.type}
+                                        resource={resource}
+                                        record={emptyRecord}
+                                    />
+                                    {!filterElement.props.alwaysOn &&
+                                    !shouldBulkToggleFilters ? (
+                                        <IconButton
+                                            className="hide-filter"
+                                            onClick={this.handleHide}
+                                            data-key={
+                                                filterElement.props.source
+                                            }
+                                            tooltip={translate(
+                                                'ra.action.remove_filter'
+                                            )}
+                                        >
+                                            <ActionHide />
+                                        </IconButton>
+                                    ) : null}
+                                </Grid>
+                            ))}
+                        </Grid>
                     </CardContent>
                 }
                 <div className={classes.clearFix} />
