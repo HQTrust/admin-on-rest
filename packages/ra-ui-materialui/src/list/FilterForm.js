@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Field, reduxForm } from 'redux-form';
 import CardContent from '@material-ui/core/CardContent';
 import IconButton from '@material-ui/core/IconButton';
+import DefaultButton from '@material-ui/core/Checkbox';
 import DefaultCheckbox from '@material-ui/core/Checkbox';
 import Grid from '@material-ui/core/Grid';
 import ActionHide from '@material-ui/icons/HighlightOff';
@@ -27,6 +28,8 @@ const styles = ({ palette: { primary1Color } }) => ({
         backgroundColor: 'transparent',
         boxShadow: 'none',
     },
+    inputContainer: { marginBottom: 24 },
+    resetButton: { alignSelf: 'flex-end', margin: 'auto 0 0' },
     body: { display: 'flex', alignItems: 'flex-end' },
     spacer: { width: 48 },
     icon: { color: primary1Color || '#00bcd4', paddingBottom: 0 },
@@ -101,6 +104,8 @@ export class FilterForm extends Component {
 
     render() {
         const {
+            ButtonClass,
+            buttonProps,
             CheckboxClass,
             classes = {},
             className,
@@ -175,7 +180,7 @@ export class FilterForm extends Component {
                                     </div>
                                 )}
 
-                            <Grid container spacing={16}>
+                            <Grid container spacing={16} className={classes.inputContainer}>
                                 {shownFilters.map(filterElement => (
                                     <Grid
                                         key={filterElement.props.source}
@@ -183,9 +188,6 @@ export class FilterForm extends Component {
                                         xs={12}
                                         sm={6}
                                         md={4}
-                                        className={
-                                            filterElement.props.containerClassName
-                                        }
                                     >
                                         {filterElement}
 
@@ -207,6 +209,14 @@ export class FilterForm extends Component {
                                     </Grid>
                                 ))}
                             </Grid>
+
+                            <ButtonClass
+                                {...buttonProps}
+                                className={classes.resetButton}
+                                onClick={() => this.props.setFilters({})}
+                            >
+                                Allex zurücksetzen
+                            </ButtonClass>
                         </CardContent>
                     </React.Fragment>
                 )}
@@ -217,6 +227,8 @@ export class FilterForm extends Component {
 }
 
 FilterForm.propTypes = {
+    ButtonClass: PropTypes.oneOfType([PropTypes.object, PropTypes.func]),
+    buttonProps: PropTypes.object,
     CheckboxClass: PropTypes.oneOfType([PropTypes.object, PropTypes.func]),
     resource: PropTypes.string.isRequired,
     filters: PropTypes.arrayOf(PropTypes.node).isRequired,
@@ -238,6 +250,7 @@ FilterForm.propTypes = {
 };
 
 FilterForm.defaultProps = {
+    ButtonClass: DefaultButton,
     CheckboxClass: DefaultCheckbox,
 };
 
