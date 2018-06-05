@@ -17,7 +17,7 @@ import {
     TextField,
     TextInput,
 } from 'react-admin';
-import Icon from 'material-ui-icons/Collections';
+import Icon from '@material-ui/icons/Collections';
 import Chip from '@material-ui/core/Chip';
 import RichTextInput from 'ra-input-rich-text';
 

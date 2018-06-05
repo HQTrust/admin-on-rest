@@ -5,7 +5,7 @@ import CardContent from '@material-ui/core/CardContent';
 import IconButton from '@material-ui/core/IconButton';
 import DefaultCheckbox from '@material-ui/core/Checkbox';
 import Grid from '@material-ui/core/Grid';
-import ActionHide from 'material-ui-icons/HighlightOff';
+import ActionHide from '@material-ui/icons/HighlightOff';
 import compose from 'recompose/compose';
 import withProps from 'recompose/withProps';
 import { withStyles } from '@material-ui/core/styles';

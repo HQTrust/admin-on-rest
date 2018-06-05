@@ -27,17 +27,20 @@ import {
     required,
 } from 'react-admin'; // eslint-disable-line import/no-unresolved
 
-import PersonIcon from 'material-ui-icons/Person';
-import Avatar from 'material-ui/Avatar';
-import Card, { CardActions, CardHeader, CardContent } from 'material-ui/Card';
-import Button from 'material-ui/Button';
-import Toolbar from 'material-ui/Toolbar';
-import Typography from 'material-ui/Typography';
-import ChevronLeft from 'material-ui-icons/ChevronLeft';
-import ChevronRight from 'material-ui-icons/ChevronRight';
-import Grid from 'material-ui/Grid';
-import { withStyles } from 'material-ui/styles';
-import ChatBubbleIcon from 'material-ui-icons/ChatBubble';
+import PersonIcon from '@material-ui/icons/Person';
+import Avatar from '@material-ui/core/Avatar';
+import Card from '@material-ui/core/Card';
+import CardActions from '@material-ui/core/CardActions';
+import CardHeader from '@material-ui/core/CardHeader';
+import CardContent from '@material-ui/core/CardContent';
+import Button from '@material-ui/core/Button';
+import Toolbar from '@material-ui/core/Toolbar';
+import Typography from '@material-ui/core/Typography';
+import ChevronLeft from '@material-ui/icons/ChevronLeft';
+import ChevronRight from '@material-ui/icons/ChevronRight';
+import Grid from '@material-ui/core/Grid';
+import { withStyles } from '@material-ui/core/styles';
+import ChatBubbleIcon from '@material-ui/icons/ChatBubble';
 export const CommentIcon = ChatBubbleIcon;
 
 const CommentFilter = props => (

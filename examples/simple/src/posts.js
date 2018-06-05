@@ -51,11 +51,11 @@ import {
     translate,
 } from 'react-admin'; // eslint-disable-line import/no-unresolved
 import RichTextInput from 'ra-input-rich-text';
-import Chip from 'material-ui/Chip';
-import { InputAdornment } from 'material-ui/Input';
-import { withStyles } from 'material-ui/styles';
-import BookIcon from 'material-ui-icons/Book';
-import SearchIcon from 'material-ui-icons/Search';
+import Chip from '@material-ui/core/Chip';
+import InputAdornment from '@material-ui/core/InputAdornment';
+import { withStyles } from '@material-ui/core/styles';
+import BookIcon from '@material-ui/icons/Book';
+import SearchIcon from '@material-ui/icons/Search';
 export const PostIcon = BookIcon;
 import ResetViewsAction from './ResetViewsAction';
 

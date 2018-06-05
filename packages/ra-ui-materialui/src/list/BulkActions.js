@@ -1,6 +1,6 @@
 import React, { cloneElement, Children, Component } from 'react';
 import PropTypes from 'prop-types';
-import FilterNoneIcon from 'material-ui-icons/FilterNone';
+import FilterNoneIcon from '@material-ui/icons/FilterNone';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import { withStyles } from '@material-ui/core/styles';

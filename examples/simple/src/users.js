@@ -24,9 +24,9 @@ import {
     required,
     translate,
 } from 'react-admin'; // eslint-disable-line import/no-unresolved
-import { InputAdornment } from 'material-ui/Input';
-import PeopleIcon from 'material-ui-icons/People';
-import SearchIcon from 'material-ui-icons/Search';
+import InputAdornment from '@material-ui/core/InputAdornment';
+import PeopleIcon from '@material-ui/icons/People';
+import SearchIcon from '@material-ui/icons/Search';
 export const UserIcon = PeopleIcon;
 
 const UserFilter = ({ permissions, ...props }) => (
