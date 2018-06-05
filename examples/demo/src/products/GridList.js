@@ -2,8 +2,8 @@ import React from 'react';
 import MuiGridList, {
     GridListTile,
     GridListTileBar,
-} from 'material-ui/GridList';
-import { withStyles } from 'material-ui/styles';
+} from '@material-ui/core/GridList';
+import { withStyles } from '@material-ui/core/styles';
 import { NumberField, EditButton } from 'react-admin';
 
 const styles = {

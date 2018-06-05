@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import Card, { CardContent } from 'material-ui/Card';
-import Button from 'material-ui/Button';
+import Card, { CardContent } from '@material-ui/core/Card';
+import Button from '@material-ui/core/Button';
 import { translate, changeLocale, ViewTitle } from 'react-admin';
 
 import { changeTheme } from './actions';

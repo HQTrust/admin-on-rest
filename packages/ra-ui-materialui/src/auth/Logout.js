@@ -2,11 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import compose from 'recompose/compose';
-import { MenuItem } from 'material-ui/Menu';
-import Button from 'material-ui/Button';
+import MenuItem from '@material-ui/core/MenuItem';
+import Button from '@material-ui/core/Button';
 import ExitIcon from 'material-ui-icons/PowerSettingsNew';
 import classnames from 'classnames';
-import { withStyles } from 'material-ui/styles';
+import { withStyles } from '@material-ui/core/styles';
 import Responsive from '../layout/Responsive';
 
 import { translate, userLogout as userLogoutAction } from 'ra-core';

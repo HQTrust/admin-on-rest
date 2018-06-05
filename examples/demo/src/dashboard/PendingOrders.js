@@ -1,13 +1,13 @@
 import React from 'react';
 import compose from 'recompose/compose';
-import Card, { CardHeader } from 'material-ui/Card';
+import Card, { CardHeader } from '@material-ui/core/Card';
 import List, {
     ListItem,
     ListItemSecondaryAction,
     ListItemText,
-} from 'material-ui/List';
-import Avatar from 'material-ui/Avatar';
-import { withStyles } from 'material-ui/styles';
+} from '@material-ui/core/List';
+import Avatar from '@material-ui/core/Avatar';
+import { withStyles } from '@material-ui/core/styles';
 import { Link } from 'react-router-dom';
 import { translate } from 'react-admin';
 

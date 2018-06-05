@@ -1,7 +1,7 @@
 import React from 'react';
-import { LinearProgress as Progress } from 'material-ui/Progress';
+import MuiLinearProgress from '@material-ui/core/LinearProgress';
 import PropTypes from 'prop-types';
-import { withStyles } from 'material-ui/styles';
+import { withStyles } from '@material-ui/core/styles';
 import classnames from 'classnames';
 
 const styles = theme => ({
@@ -22,7 +22,10 @@ const styles = theme => ({
  * @param {object} classes CSS class names injected by withStyles 
  */
 export const LinearProgress = ({ classes, className, ...rest }) => (
-    <Progress className={classnames(classes.root, className)} {...rest} />
+    <MuiLinearProgress
+        className={classnames(classes.root, className)}
+        {...rest}
+    />
 );
 LinearProgress.propTypes = {
     classes: PropTypes.object,

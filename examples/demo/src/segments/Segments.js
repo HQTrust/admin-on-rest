@@ -1,11 +1,11 @@
 import React from 'react';
-import Card from 'material-ui/Card';
+import Card from '@material-ui/core/Card';
 import Table, {
     TableBody,
     TableHead,
     TableRow,
     TableCell,
-} from 'material-ui/Table';
+} from '@material-ui/core/Table';
 import { translate, ViewTitle } from 'react-admin';
 
 import LinkToRelatedCustomers from './LinkToRelatedCustomers';

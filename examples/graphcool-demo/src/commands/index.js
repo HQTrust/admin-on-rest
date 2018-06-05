@@ -21,7 +21,7 @@ import {
     TextInput,
 } from 'react-admin';
 import Icon from 'material-ui-icons/AttachMoney';
-import { withStyles } from 'material-ui/styles';
+import { withStyles } from '@material-ui/core/styles';
 
 import Basket from './Basket';
 import NbItemsField from './NbItemsField';
