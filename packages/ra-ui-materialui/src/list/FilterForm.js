@@ -227,7 +227,7 @@ export class FilterForm extends Component {
                                 className={classes.resetButton}
                                 onClick={() => this.props.setFilters({})}
                             >
-                                Allex zurücksetzen
+                                Alles zurücksetzen
                             </ButtonClass>
                         </CardContent>
                     </React.Fragment>
