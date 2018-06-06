@@ -85,7 +85,7 @@ export class TextInput extends Component {
 }
 
 TextInput.propTypes = {
-    TextFieldClass: PropTypes.object.isRequired,
+    TextFieldClass: PropTypes.oneOfType([PropTypes.object, PropTypes.func]).isRequired,
     className: PropTypes.string,
     input: PropTypes.object,
     isRequired: PropTypes.bool,

@@ -59,15 +59,13 @@ export class FilterButton extends Component {
         // This prevents ghost click.
         event.preventDefault();
 
-        const areFiltersVisible = this.state.open;
+        const areFiltersVisible = Object.keys(displayedFilters).length > 0;
 
         if (areFiltersVisible) {
             this.props.hideActiveFilters();
         } else {
             this.props.showInactiveFilters();
         }
-
-        this.setState({ open: !this.state.open });
     }
 
     handleRequestClose() {
@@ -97,6 +95,9 @@ export class FilterButton extends Component {
             filterValues,
             translate,
             shouldBulkToggleFilters,
+            // Don't spread unused props
+            showInactiveFilters,
+            hideActiveFilters,
             ...rest
         } = this.props;
         const { open, anchorEl } = this.state;
