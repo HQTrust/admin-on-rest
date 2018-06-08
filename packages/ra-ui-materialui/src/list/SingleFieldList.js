@@ -66,6 +66,7 @@ export class SingleFieldList extends Component {
             resource,
             basePath,
             children,
+            linkBasePath,
             linkType,
             ...rest
         } = this.props;
@@ -76,9 +77,10 @@ export class SingleFieldList extends Component {
                 {...sanitizeRestProps(rest)}
             >
                 {ids.map(id => {
+                    const record = data[id]
                     const resourceLinkPath = !linkType
                         ? false
-                        : linkToRecord(basePath, id, linkType);
+                        : linkToRecord(linkBasePath || basePath, id, linkType);
 
                     if (resourceLinkPath) {
                         return (

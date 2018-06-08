@@ -92,10 +92,10 @@ export class ArrayField extends Component {
         return list
             ? {
                   data: list.reduce((prev, item) => {
-                      prev[JSON.stringify(item)] = item;
+                      prev[item.id] = item;
                       return prev;
                   }, {}),
-                  ids: list.map(JSON.stringify),
+                  ids: list.map((item) => item.id),
               }
             : initialState;
     }
