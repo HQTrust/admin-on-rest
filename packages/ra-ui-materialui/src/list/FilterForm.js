@@ -157,7 +157,7 @@ export class FilterForm extends Component {
                                             className={classes.checkboxWrapper}
                                             item
                                             sm={12}
-                                            md={6}
+                                            lg={6}
                                         >
                                             <FormControlLabel
                                                 key={source}
@@ -198,8 +198,7 @@ export class FilterForm extends Component {
                                         key={filterElement.props.source}
                                         item
                                         xs={12}
-                                        sm={6}
-                                        md={4}
+                                        md={6}
                                     >
                                         {filterElement}
 
