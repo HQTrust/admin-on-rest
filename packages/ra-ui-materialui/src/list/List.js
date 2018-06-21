@@ -25,6 +25,7 @@ const styles = {
 };
 
 const sanitizeRestProps = ({
+    authParams,
     TitleClass,
     children,
     classes,
@@ -183,56 +184,37 @@ export const ListView = ({
                     })}
                 </Card>
             )}
-            {isLoading || total > 0 ? (
-                <div key={version}>
-                    {children &&
-                        React.cloneElement(children, {
-                            basePath,
-                            currentSort,
-                            data,
-                            enabledSources,
-                            filterValues,
-                            hasBulkActions: !!bulkActions,
-                            ids,
-                            isLoading,
-                            onSelect,
-                            onToggleItem,
-                            resource,
-                            selectedIds,
-                            setFilters,
-                            setFiltersImmediate,
-                            setSort,
-                            total,
-                            version,
-                        })}
-                    {!isLoading &&
-                        !ids.length && (
-                            <CardContent style={styles.noResults}>
-                                <Typography variant="body1">
-                                    {translate(
-                                        'ra.navigation.no_more_results',
-                                        {
-                                            page,
-                                        }
-                                    )}
-                                </Typography>
-                            </CardContent>
-                        )}
-                    {pagination &&
-                        React.cloneElement(pagination, {
-                            page,
-                            perPage,
-                            setPage,
-                            total,
-                        })}
-                </div>
-            ) : (
-                <CardContent className={classes.noResults}>
-                    <Typography variant="body1">
-                        {translate('ra.navigation.no_results')}
-                    </Typography>
-                </CardContent>
-            )}
+
+            <div key={version}>
+                {children &&
+                    React.cloneElement(children, {
+                        basePath,
+                        currentSort,
+                        data,
+                        enabledSources,
+                        filterValues,
+                        hasBulkActions: !!bulkActions,
+                        ids,
+                        isLoading,
+                        onSelect,
+                        onToggleItem,
+                        resource,
+                        selectedIds,
+                        setFilters,
+                        setFiltersImmediate,
+                        setSort,
+                        total,
+                        version,
+                    })}
+
+                {pagination && total > 0 &&
+                    React.cloneElement(pagination, {
+                        page,
+                        perPage,
+                        setPage,
+                        total,
+                    })}
+            </div>
         </div>
     );
 };
@@ -346,7 +328,7 @@ List.propTypes = {
     metaSources: PropTypes.arrayOf(PropTypes.string),
     filter: PropTypes.object,
     filters: PropTypes.element,
-    pagination: PropTypes.element,
+    pagination: PropTypes.oneOfType([PropTypes.bool, PropTypes.element]),
     perPage: PropTypes.number.isRequired,
     sort: PropTypes.shape({
         field: PropTypes.string,
