@@ -8,6 +8,7 @@ export default ({
     headerClassName,
     isFullWidthVisible,
     label,
+    linkToResource,
     linkType,
     locale,
     record,

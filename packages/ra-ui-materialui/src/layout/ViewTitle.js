@@ -1,11 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Typography from '@material-ui/core/Typography';
 
 const ViewTitle = ({ className, title }) => (
-    <Typography className={className} variant="headline">
+    <div className={className}>
         {title}
-    </Typography>
+    </div>
 );
 
 ViewTitle.propTypes = {
