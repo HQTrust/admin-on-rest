@@ -5,12 +5,20 @@ import classnames from 'classnames';
 
 import ViewTitle from './ViewTitle';
 
-const styles = {
+const styles = (theme) => ({
     root: {
+        [theme.breakpoints.down('xs')]: {
+            flexDirection: 'column',
+        },
         display: 'flex',
         justifyContent: 'space-between',
     },
-};
+    header: {
+        [theme.breakpoints.down('xs')]: {
+            marginBottom: 24,
+        },
+    },
+});
 
 export const Header = ({
     classes,
@@ -21,7 +29,7 @@ export const Header = ({
     ...rest
 }) => (
     <div className={classnames(classes.root, className)} {...rest}>
-        <ViewTitle title={title} />
+        <ViewTitle className={classes.header} title={title} />
         {actions && React.cloneElement(actions, actionProps)}
     </div>
 );
