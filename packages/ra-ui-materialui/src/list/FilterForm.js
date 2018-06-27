@@ -10,6 +10,7 @@ import ActionHide from '@material-ui/icons/HighlightOff';
 import compose from 'recompose/compose';
 import withProps from 'recompose/withProps';
 import { withStyles } from '@material-ui/core/styles';
+import { connect } from 'react-redux'
 import classnames from 'classnames';
 import lodashSet from 'lodash/set';
 import { translate } from 'ra-core';
@@ -288,10 +289,15 @@ export const mergeInitialValuesWithDefaultValues = ({
     },
 });
 
+export const getFilterFormKey = (resource) => `${resource}-filter-form`
+
+const mapStateToProps = (state, { resource }) => ({ form: getFilterFormKey(resource) })
+
 const enhance = compose(
     withStyles(styles),
     translate,
     withProps(mergeInitialValuesWithDefaultValues),
+    connect(mapStateToProps, null),
     reduxForm({
         form: 'filterForm',
         enableReinitialize: true,
