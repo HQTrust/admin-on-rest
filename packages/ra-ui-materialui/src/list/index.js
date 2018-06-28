@@ -3,7 +3,7 @@ export BulkDeleteAction from './BulkDeleteAction';
 export Datagrid from './Datagrid';
 export Filter from './Filter';
 export FilterButton from './FilterButton';
-export FilterForm from './FilterForm';
+export FilterForm, { getFilterFormKey } from './FilterForm';
 export List from './List';
 export ListActions from './ListActions';
 export Pagination from './Pagination';
