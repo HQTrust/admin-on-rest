@@ -73,6 +73,7 @@ const sanitizeRestProps = ({
     save,
     setFilter,
     setFilters,
+    setFiltersImmediate,
     setSourceActive,
     submit,
     submitFailed,
@@ -155,13 +156,13 @@ export class FilterForm extends Component {
                                     const source = sourceFilter.props.source;
                                     return (
                                         <Grid
+                                            key={source}
                                             className={classes.checkboxWrapper}
                                             item
                                             sm={12}
                                             lg={6}
                                         >
                                             <FormControlLabel
-                                                key={source}
                                                 control={
                                                     <CheckboxClass
                                                         classes={{ root: classes.checkbox }}
