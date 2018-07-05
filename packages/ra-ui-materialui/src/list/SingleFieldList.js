@@ -14,6 +14,7 @@ const sanitizeRestProps = ({
     currentSort,
     isLoading,
     isFullWidthVisible,
+    linkToResource,
     showFullWidthTableRow,
     showRowOverlay,
     ...props
