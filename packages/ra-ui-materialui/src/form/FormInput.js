@@ -19,13 +19,13 @@ export const FormInput = ({ input, ...rest }) =>
                 <Labeled {...input.props} {...sanitizeRestProps(rest)}>
                     {React.cloneElement(input, {
                         className: input.props.className,
-                        ...rest,
+                        ...sanitizeRestProps(rest),
                     })}
                 </Labeled>
             ) : (
                 React.cloneElement(input, {
                     className: input.props.className,
-                    ...rest,
+                    ...sanitizeRestProps(rest),
                 })
             )}
         </div>
