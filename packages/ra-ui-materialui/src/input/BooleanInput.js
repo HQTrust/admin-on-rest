@@ -14,13 +14,14 @@ export class BooleanInput extends Component {
 
     render() {
         const {
+            SwitchClass,
             className,
             input,
             isRequired,
             label,
-            source,
-            resource,
             options,
+            resource,
+            source,
             ...rest
         } = this.props;
 
