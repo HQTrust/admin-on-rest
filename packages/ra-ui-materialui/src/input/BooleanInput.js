@@ -28,7 +28,7 @@ export class BooleanInput extends Component {
             <FormGroup className={className} {...sanitizeRestProps(rest)}>
                 <FormControlLabel
                     control={
-                        <Switch
+                        <SwitchClass
                             color="primary"
                             checked={!!input.value}
                             onChange={this.handleChange}
@@ -50,16 +50,18 @@ export class BooleanInput extends Component {
 }
 
 BooleanInput.propTypes = {
+    SwitchClass: PropTypes.oneOfType([PropTypes.object, PropTypes.func]).isRequired,
     className: PropTypes.string,
     input: PropTypes.object,
     isRequired: PropTypes.bool,
     label: PropTypes.string,
+    options: PropTypes.object,
     resource: PropTypes.string,
     source: PropTypes.string,
-    options: PropTypes.object,
 };
 
 BooleanInput.defaultProps = {
+    SwitchClass: Switch,
     options: {},
 };
 
