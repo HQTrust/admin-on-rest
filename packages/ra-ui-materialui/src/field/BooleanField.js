@@ -11,8 +11,8 @@ export const BooleanField = ({
     className,
     source,
     record,
-    FalseIcon,
-    TrueIcon,
+    FalseIconClass,
+    TrueIconClass,
     falseIconProps,
     trueIconProps,
     ...rest
@@ -28,7 +28,7 @@ export const BooleanField = ({
     if (get(record, source) === true) {
         return (
             <span className={className} {...sanitizeRestProps(rest)}>
-                <TrueIcon {..trueIconProps} />
+                <TrueIconClass {...trueIconProps} />
             </span>
         );
     }
@@ -39,8 +39,8 @@ export const BooleanField = ({
 };
 
 BooleanField.propTypes = {
-    FalseIcon: PropTypes.oneOfType([PropTypes.object, PropTypes.func]).isRequired,
-    TrueIcon: PropTypes.oneOfType([PropTypes.object, PropTypes.func]).isRequired,
+    FalseIconClass: PropTypes.oneOfType([PropTypes.object, PropTypes.func]).isRequired,
+    TrueIconClass: PropTypes.oneOfType([PropTypes.object, PropTypes.func]).isRequired,
     addLabel: PropTypes.bool,
     basePath: PropTypes.string,
     cellClassName: PropTypes.string,
@@ -57,8 +57,8 @@ BooleanField.propTypes = {
 const PureBooleanField = pure(BooleanField);
 
 PureBooleanField.defaultProps = {
-    FalseIcon: MuiFalseIcon,
-    TrueIcon: MuiTrueIcon,
+    FalseIconClass: MuiFalseIcon,
+    TrueIconClass: MuiTrueIcon,
     addLabel: true,
 };
 
