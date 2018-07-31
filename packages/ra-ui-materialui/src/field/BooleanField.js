@@ -7,11 +7,20 @@ import MuiTrueIcon from '@material-ui/icons/Done';
 
 import sanitizeRestProps from './sanitizeRestProps';
 
-export const BooleanField = ({ className, source, record, FalseIcon, TrueIcon = {}, ...rest }) => {
+export const BooleanField = ({
+    className,
+    source,
+    record,
+    FalseIcon,
+    TrueIcon,
+    falseIconProps,
+    trueIconProps,
+    ...rest
+}) => {
     if (get(record, source) === false) {
         return (
             <span className={className} {...sanitizeRestProps(rest)}>
-                <FalseIcon />
+                <FalseIconClass {...falseIconProps} />
             </span>
         );
     }
@@ -19,7 +28,7 @@ export const BooleanField = ({ className, source, record, FalseIcon, TrueIcon = 
     if (get(record, source) === true) {
         return (
             <span className={className} {...sanitizeRestProps(rest)}>
-                <TrueIcon />
+                <TrueIcon {..trueIconProps} />
             </span>
         );
     }
@@ -34,13 +43,15 @@ BooleanField.propTypes = {
     TrueIcon: PropTypes.oneOfType([PropTypes.object, PropTypes.func]).isRequired,
     addLabel: PropTypes.bool,
     basePath: PropTypes.string,
-    className: PropTypes.string,
     cellClassName: PropTypes.string,
+    className: PropTypes.string,
+    falseIconProps: PropTypes.object,
     headerClassName: PropTypes.string,
     label: PropTypes.string,
     record: PropTypes.object,
     sortBy: PropTypes.string,
     source: PropTypes.string.isRequired,
+    trueIconProps: PropTypes.object,
 };
 
 const PureBooleanField = pure(BooleanField);
