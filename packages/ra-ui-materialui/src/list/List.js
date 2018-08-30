@@ -38,6 +38,7 @@ const sanitizeRestProps = ({
     hasEdit,
     hasList,
     hasShow,
+    isExportable,
     filter,
     filterValues,
     crudGetList,
@@ -91,6 +92,7 @@ export const ListView = ({
     hideFilter,
     hideHeader,
     ids,
+    isExportable,
     isLoading,
     metaSources,
     onSelect,
@@ -99,6 +101,8 @@ export const ListView = ({
     page,
     pagination = <DefaultPagination />,
     perPage,
+    record,
+    reference,
     refresh,
     resource,
     selectedIds,
@@ -209,9 +213,15 @@ export const ListView = ({
 
                 {pagination && total > 0 &&
                     React.cloneElement(pagination, {
+                        filter: filterValues,
+                        isExportable,
                         page,
                         perPage,
+                        record,
+                        reference,
+                        resource,
                         setPage,
+                        sort: currentSort,
                         total,
                     })}
             </div>
@@ -244,6 +254,7 @@ ListView.propTypes = {
     hideFilter: PropTypes.func,
     hideHeader: PropTypes.bool,
     ids: PropTypes.array,
+    isExportable: PropTypes.bool,
     isLoading: PropTypes.bool,
     metaSources: PropTypes.arrayOf(PropTypes.string),
     onSelect: PropTypes.func,
@@ -325,6 +336,7 @@ List.propTypes = {
     classes: PropTypes.object,
     className: PropTypes.string,
     initiallyEnabledSources: PropTypes.arrayOf(PropTypes.string),
+    isExportable: PropTypes.bool,
     metaSources: PropTypes.arrayOf(PropTypes.string),
     filter: PropTypes.object,
     filters: PropTypes.element,
@@ -349,6 +361,7 @@ List.propTypes = {
 };
 
 List.defaultProps = {
+    isExportable: false,
     TitleClass: Title,
     filter: {},
     perPage: 10,
