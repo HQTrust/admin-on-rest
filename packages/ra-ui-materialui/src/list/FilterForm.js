@@ -60,12 +60,14 @@ const sanitizeRestProps = ({
     enableSource,
     filterButton,
     filterValues,
+    formName,
     handleSubmit,
     hideFilter,
     initialize,
     initialized,
     initialValues,
     invalid,
+    location,
     pristine,
     pure,
     reset,
@@ -244,10 +246,12 @@ FilterForm.propTypes = {
     CheckboxClass: PropTypes.oneOfType([PropTypes.object, PropTypes.func]),
     resource: PropTypes.string.isRequired,
     filters: PropTypes.arrayOf(PropTypes.node).isRequired,
+    formName: PropTypes.string,
     displayedFilters: PropTypes.object.isRequired,
     hideFilter: PropTypes.func.isRequired,
     inActionsToolbar: PropTypes.bool,
     initialValues: PropTypes.object,
+    location: PropTypes.object.isRequired,
     translate: PropTypes.func.isRequired,
     classes: PropTypes.object,
     className: PropTypes.string,
@@ -290,9 +294,13 @@ export const mergeInitialValuesWithDefaultValues = ({
     },
 });
 
-export const getFilterFormKey = (resource) => `${resource}-filter-form`
+export const getFilterFormKey = (resource, location) => `${location.pathname}-${resource}-filter-form`
 
-const mapStateToProps = (state, { resource }) => ({ form: getFilterFormKey(resource) })
+const mapStateToProps = (state, props) => {
+    return {
+        form: props.formName || getFilterFormKey(props.resource, props.location)
+    }
+}
 
 const enhance = compose(
     withStyles(styles),
