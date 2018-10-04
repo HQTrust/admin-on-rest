@@ -24,10 +24,11 @@ const sanitizeRestProps = ({
     dirty,
     dispatch,
     form,
+    formName,
     handleSubmit,
+    initialValues,
     initialize,
     initialized,
-    initialValues,
     pristine,
     pure,
     redirect,
@@ -55,8 +56,9 @@ export class SimpleForm extends Component {
         const {
             basePath,
             children,
-            classes = {},
             className,
+            classes = {},
+            formName,
             invalid,
             pristine,
             record,
@@ -107,15 +109,16 @@ export class SimpleForm extends Component {
 SimpleForm.propTypes = {
     basePath: PropTypes.string,
     children: PropTypes.node,
-    classes: PropTypes.object,
     className: PropTypes.string,
+    classes: PropTypes.object,
     defaultValue: PropTypes.oneOfType([PropTypes.object, PropTypes.func]),
+    formName: PropTypes.string,
     handleSubmit: PropTypes.func, // passed by redux-form
     invalid: PropTypes.bool,
     pristine: PropTypes.bool,
     record: PropTypes.object,
-    resource: PropTypes.string,
     redirect: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
+    resource: PropTypes.string,
     save: PropTypes.func, // the handler defined in the parent, which triggers the REST submission
     submitOnEnter: PropTypes.bool,
     toolbar: PropTypes.element,
@@ -133,13 +136,13 @@ SimpleForm.defaultProps = {
 const enhance = compose(
     connect((state, props) => ({
         initialValues: getDefaultValues(state, props),
+        form: props.formName || 'record-form'
     })),
     translate, // Must be before reduxForm so that it can be used in validation
     reduxForm({
-        form: 'record-form',
         destroyOnUnmount: false,
         enableReinitialize: true,
-    }),
+    })
 );
 
 export default enhance(SimpleForm);
