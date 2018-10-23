@@ -49,6 +49,7 @@ export class NumberInput extends Component {
 
     render() {
         const {
+            TextFieldClass,
             className,
             input,
             isRequired,
@@ -58,6 +59,7 @@ export class NumberInput extends Component {
             source,
             step,
             resource,
+            textFieldProps,
             ...rest
         } = this.props;
         if (typeof meta === 'undefined') {
@@ -68,7 +70,7 @@ export class NumberInput extends Component {
         const { touched, error } = meta;
 
         return (
-            <TextField
+            <TextFieldClass
                 type="number"
                 margin="normal"
                 error={!!(touched && error)}
@@ -95,6 +97,8 @@ export class NumberInput extends Component {
 }
 
 NumberInput.propTypes = {
+    TextFieldClass: PropTypes.oneOfType([PropTypes.object, PropTypes.func]).isRequired,
+    textFieldProps: PropTypes.object,
     className: PropTypes.string,
     input: PropTypes.object,
     isRequired: PropTypes.bool,
@@ -121,6 +125,7 @@ NumberInput.defaultProps = {
     options: {},
     step: 'any',
     textAlign: 'right',
+    TextFieldClass: TextField,
 };
 
 export const NumberInputWithField = addField(NumberInput);
