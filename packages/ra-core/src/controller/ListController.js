@@ -10,6 +10,8 @@ import inflection from 'inflection';
 import debounce from 'lodash/debounce';
 import isEqual from 'lodash/isEqual';
 import pickBy from 'lodash/pickBy';
+import isEmpty from 'lodash/isEmpty';
+import merge from 'lodash/merge';
 
 import removeEmpty from '../util/removeEmpty';
 import queryReducer, {
@@ -194,17 +196,21 @@ export class ListController extends Component {
     updateData(props, query) {
         const params = query || this.getQuery();
         const { perPage } = props;
-        const { sort, order, page = 1, filter } = params;
+        const { sort, order, page = 1, filter: raFilter } = params;
         const pagination = {
             page: parseInt(page, 10),
             perPage: parseInt(perPage, 10),
         };
-        const permanentFilter = this.props.filter;
+        const {
+          defaultFilter,
+          permanentFilter,
+        } = this.props;
+        const filter = isEmpty(raFilter) && isEmpty(permanentFilter) ? defaultFilter : merge(permanentFilter, raFilter)
         this.props.crudGetList(
             this.props.resource,
             pagination,
             { field: sort, order },
-            { ...filter, ...permanentFilter }
+            filter
         );
     }
 
@@ -380,7 +386,8 @@ export class ListController extends Component {
 ListController.propTypes = {
     // the props you can change
     children: PropTypes.func.isRequired,
-    filter: PropTypes.object,
+    defaultFilter: PropTypes.object,
+    permanentFilter: PropTypes.object,
     filters: PropTypes.element,
     pagination: PropTypes.oneOfType([
         PropTypes.bool,
@@ -424,7 +431,8 @@ ListController.propTypes = {
 
 ListController.defaultProps = {
     debounce: 500,
-    filter: {},
+    defaultFilter: {},
+    permanentFilter: {},
     filterValues: {},
     perPage: 10,
     sort: {
