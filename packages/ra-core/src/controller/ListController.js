@@ -81,8 +81,10 @@ export class ListController extends Component {
         let activeFilters = {}
 
         const queryFilters = keys(get(props, 'query.filter', {}))
-        if (queryFilters.length > 0) {
-          activeFilters = flatten([queryFilters, props.initiallyEnabledSources]).reduce((filters, filterName) => (
+        const storeFilters = keys(props.filterValues)
+        const allFilters = queryFilters.concat(storeFilters)
+        if (allFilters.length > 0) {
+          activeFilters = flatten([allFilters, props.initiallyEnabledSources]).reduce((filters, filterName) => (
             { ...filters, [filterName]: true }
           ), {});
         }
