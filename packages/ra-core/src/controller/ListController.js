@@ -89,9 +89,10 @@ export class ListController extends Component {
         const strippedRangeFilters = allFilters.map(filter => filter.replace(rangeFiltersSuffix, ''))
 
         if (allFilters.length > 0) {
-          activeFilters = flatten([allFilters, strippedRangeFilters, props.initiallyEnabledSources]).reduce((filters, filterName) => (
-            { ...filters, [filterName]: true }
-          ), {});
+          activeFilters = flatten([allFilters, strippedRangeFilters, props.initiallyEnabledSources])
+            .reduce((filters, filterName) => (
+                { ...filters, [filterName]: true }
+            ), {});
         }
 
         const enabledSources = props.initiallyEnabledSources.reduce((sources, src) => (
