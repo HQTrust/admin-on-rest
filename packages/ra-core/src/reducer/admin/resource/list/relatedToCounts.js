@@ -13,11 +13,12 @@ import { metaMatchesResource } from '../index'
 import { nameRelatedTo, parseNameRelatedTo } from '../../references/oneToMany.js'
 
 export default resource => (previousState = {}, { type, payload, meta }) => {
-    if (!metaMatchesResource(meta, resource)) {
-        return previousState;
-    }
-
-  if (type !== CRUD_GET_LIST_SUCCESS && type !== CRUD_GET_MANY_REFERENCE_SUCCESS) {
+  if (
+    meta === undefined ||
+    meta.relatedTo === undefined ||
+    !metaMatchesResource(meta, resource) ||
+    (type !== CRUD_GET_LIST_SUCCESS && type !== CRUD_GET_MANY_REFERENCE_SUCCESS)
+  ) {
     return previousState;
   }
 
@@ -40,10 +41,10 @@ export default resource => (previousState = {}, { type, payload, meta }) => {
   )
 
   switch(type) {
-        case CRUD_GET_LIST_SUCCESS:
-        case CRUD_GET_MANY_REFERENCE_SUCCESS:
-            return _.isNumber(payload.total) ? { ...previousState, [relatedTo]: payload.total } : previousState;
-        default:
-            return previousState;
-    }
+    case CRUD_GET_LIST_SUCCESS:
+    case CRUD_GET_MANY_REFERENCE_SUCCESS:
+      return _.isNumber(payload.total) ? { ...previousState, [relatedTo]: payload.total } : previousState;
+    default:
+      return previousState;
+  }
 };
