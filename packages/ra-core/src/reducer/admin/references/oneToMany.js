@@ -95,7 +95,7 @@ export const nameRelatedTo = (reference, id, resource, target, filter = {}) => {
 };
 
 export const parseNameRelatedTo = (relatedTo) => {
-  const resourceAndRest = meta.relatedTo.split(/_(.*)/, 2)
+  const resourceAndRest = relatedTo.split(/_(.*)/, 2)
   const resource = resourceAndRest[0]
   const referenceAndRest = resourceAndRest[1].split(/@(.*)/, 2)
   const reference = referenceAndRest[0]
@@ -107,7 +107,7 @@ export const parseNameRelatedTo = (relatedTo) => {
 
   return {
     reference,
-    id,
+    recordId,
     resource,
     target,
     filter
