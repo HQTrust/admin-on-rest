@@ -94,12 +94,18 @@ export class FilterForm extends Component {
     getShownFilters() {
         const { filters, displayedFilters, inActionsToolbar } = this.props;
 
-        return filters.filter(
+        let result = filters.filter(
             filterElement =>
                 inActionsToolbar === filterElement.props.inActionsToolbar &&
                 (filterElement.props.alwaysOn ||
                     displayedFilters[filterElement.props.source])
         );
+
+        // unwrap composite inputs -> will show their multiple children in the grid next to other filters
+        result = result.map( filter => filter.props.compositeInput ? React.Children.toArray(filter.props.children) : filter );
+        result = _.flatten(result);
+
+        return result;
     }
 
     handleHide = event =>
