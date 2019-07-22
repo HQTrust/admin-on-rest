@@ -85,14 +85,14 @@ export class ListController extends Component {
         let allFilters = queryFilters.concat(storeFilters)
 
         // range filters names ends with suffixes, for filter component we need also the name without suffix
-        const rangeFiltersSuffix = /(Min|Max)$/
+        const rangeFiltersSuffix = /(Min|Max|DateMin|DateMax|By|Direction)$/
         const strippedRangeFilters = allFilters.map(filter => filter.replace(rangeFiltersSuffix, ''))
 
         if (allFilters.length > 0) {
-          activeFilters = flatten([allFilters, strippedRangeFilters, props.initiallyEnabledSources])
-            .reduce((filters, filterName) => (
-                { ...filters, [filterName]: true }
-            ), {});
+            activeFilters = flatten([allFilters, strippedRangeFilters, props.initiallyEnabledSources])
+                .reduce((filters, filterName) => (
+                    { ...filters, [filterName]: true }
+                ), {});
         }
 
         const enabledSources = props.initiallyEnabledSources.reduce((sources, src) => (
@@ -218,8 +218,8 @@ export class ListController extends Component {
             perPage: parseInt(perPage, 10),
         };
         const {
-          defaultFilter,
-          permanentFilter,
+            defaultFilter,
+            permanentFilter,
         } = this.props;
         const filter = isEmpty(raFilter) && isEmpty(permanentFilter) ? defaultFilter : merge({}, permanentFilter, raFilter)
         this.props.crudGetList(
